@@ -11,7 +11,7 @@ class StoreCompanyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,17 @@ class StoreCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'company_name' => ['required', 'string', 'max:255'],
         ];
+    }
+
+    /**
+     * 会社名を取得
+     *
+     * @return string
+     */
+    public function getCompanyName(): string
+    {
+        return $this->input('company_name');
     }
 }

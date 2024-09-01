@@ -18,7 +18,7 @@ class CompanyFactory extends Factory
     {
         return [
             'company_name' => $this->faker->company,
-            'domain'=> $this->faker->domainName(),
+            'domain'=> $this->faker->unique()->domainName(),
         ];
     }
 }

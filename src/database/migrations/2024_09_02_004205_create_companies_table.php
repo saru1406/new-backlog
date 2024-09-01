@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('company_name')->nullable(false);
-            $table->string('domain')->nullable(false);
+            $table->string('company_name');
+            $table->string('domain')->unique();
             $table->timestamps();
         });
     }

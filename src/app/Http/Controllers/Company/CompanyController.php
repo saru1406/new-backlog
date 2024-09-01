@@ -1,13 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Company;
 
+use App\Exceptions\AlreadyExistsException;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Models\Company;
+use App\Usecase\Company\StoreCompanyUsecaseInterface;
+use DB;
+use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class CompanyController extends Controller
 {
+    public function __construct(private readonly StoreCompanyUsecaseInterface $storeCompanyUsecase)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -21,7 +31,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Company/Create');
     }
 
     /**
@@ -29,7 +39,15 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        //
+        try {
+            DB::transaction(function () use($request) {
+                $this->storeCompanyUsecase->execute($request->getCompanyName());
+            });
+        } catch (AlreadyExistsException $e) {
+            Log::info($e->getMessage());
+            return Inertia::render('Dashboard', ['message' => $e->getMessage()]);
+        }
+        return to_route('dashboard');
     }
 
     /**
