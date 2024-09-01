@@ -40,13 +40,15 @@ class CompanyController extends Controller
     public function store(StoreCompanyRequest $request)
     {
         try {
-            DB::transaction(function () use($request) {
+            DB::transaction(function () use ($request) {
                 $this->storeCompanyUsecase->execute($request->getCompanyName());
             });
         } catch (AlreadyExistsException $e) {
             Log::info($e->getMessage());
+
             return Inertia::render('Dashboard', ['message' => $e->getMessage()]);
         }
+
         return to_route('dashboard');
     }
 
