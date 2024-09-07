@@ -27,11 +27,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Company
-    Route::get('/company/create', [CompanyController::class, 'create'])->name('create_company');
-    Route::post('/companies', [CompanyController::class, 'store'])->name('store_company');
+    Route::get('/company/create', [CompanyController::class, 'create'])->name('companies.create');
+    Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store');
 
     // Project
-    Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
+    Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+    ROute::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
 });
 
 require __DIR__.'/auth.php';

@@ -1,8 +1,9 @@
 type Project = {
-    id: number;
-    name: string;
+    id: string;
+    project_name: string;
+    created_at: string;
 }
 
 export type PageProps = {
-    projects: Project[];
+    projects: Project;
 }

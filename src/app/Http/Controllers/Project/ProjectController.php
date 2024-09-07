@@ -6,18 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use App\Usecase\Project\IndexProjectUsecaseInterface;
+use App\Usecase\Project\StoreProjectUsecaseInterface;
+use App\ViewModels\ProjectIndexViewModel;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
+    public function __construct(private readonly IndexProjectUsecaseInterface $indexProjectUsecase, private readonly StoreProjectUsecaseInterface $storeProjectUsecase)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = $this->indexProjectUsecase->execute();
 
-        return Inertia::render('Project/Index', ['projects' => $projects]);
+        return Inertia::render('Project/Index', ['projects' => (new ProjectIndexViewModel($projects))->render()]);
     }
 
     /**
@@ -33,7 +40,13 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        $this->storeProjectUsecase->execute($request->getProject_name());
+        $projects = $this->indexProjectUsecase->execute();
+
+        return Inertia::render('Project/Index', [
+            'message' => 'プロジェクトが作成されました',
+            'projects' => (new ProjectIndexViewModel($projects))->render(),
+        ]);
     }
 
     /**

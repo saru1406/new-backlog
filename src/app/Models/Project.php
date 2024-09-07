@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory, HasUuids;
+
+    protected $fillable = [
+        'project_name',
+        'company_id',
+    ];
 }

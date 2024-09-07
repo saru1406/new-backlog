@@ -11,7 +11,7 @@ class StoreProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,17 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'project_name' => ['required', 'string', 'max:100'],
         ];
+    }
+
+    /**
+     * プロジェクト名を取得
+     *
+     * @return string
+     */
+    public function getProject_name(): string
+    {
+        return $this->input('project_name');
     }
 }
