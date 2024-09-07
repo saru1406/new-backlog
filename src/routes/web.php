@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Project\ProjectController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,6 +29,9 @@ Route::middleware('auth')->group(function () {
     // Company
     Route::get('/company/create', [CompanyController::class, 'create'])->name('create_company');
     Route::post('/companies', [CompanyController::class, 'store'])->name('store_company');
+
+    // Project
+    Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
 });
 
 require __DIR__.'/auth.php';
