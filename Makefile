@@ -21,7 +21,7 @@ init:
 # 	docker compose exec app chmod -R 777 storage bootstrap/cache
 # 	@make fresh
 build:
-	docker compose build
+	USER_ID=$$(id -u) docker compose build
 up:
 	docker compose up -d
 stop:
