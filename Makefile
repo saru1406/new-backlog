@@ -8,8 +8,8 @@ init:
 	docker compose exec app sh -c "cd src && php artisan key:generate"
 	docker compose exec app sh -c "cd src && php artisan storage:link"
 	docker compose exec app sh -c "cd src && chmod -R 777 storage bootstrap/cache"
-	@make fresh
 	docker compose exec app sh -c "cd src && npm install"
+	@make fresh
 # create-project:
 # 	mkdir -p src
 # 	docker compose build
