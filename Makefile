@@ -1,4 +1,5 @@
 init:
+	sudo chown -R $$(whoami) .git
 	cp .env.example .env
 	@make build
 	@make up
@@ -88,3 +89,5 @@ format:
 	docker compose exec app sh -c "cd src && ./vendor/bin/pint"
 pint-test:
 	docker compose exec app sh -c "cd src && ./vendor/bin/pint -v --test"
+front-format:
+	docker compose exec app sh -c "cd src && npm run format"

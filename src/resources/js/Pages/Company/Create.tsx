@@ -19,35 +19,40 @@ export default function CreateCompany() {
 
     return (
         <GuestLayout>
-            <Head title="Register" />
+            <Head title='Register' />
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="company_name" value="会社名" />
+                    <InputLabel htmlFor='company_name' value='会社名' />
 
                     <TextInput
-                        id="company_name"
-                        name="company_name"
+                        id='company_name'
+                        name='company_name'
                         value={data.company_name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
+                        className='mt-1 block w-full'
+                        autoComplete='name'
                         isFocused={true}
-                        onChange={(e) => setData('company_name', e.target.value)}
+                        onChange={(e) =>
+                            setData('company_name', e.target.value)
+                        }
                         required
                     />
 
-                    <InputError message={errors.company_name} className="mt-2" />
+                    <InputError
+                        message={errors.company_name}
+                        className='mt-2'
+                    />
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
+                <div className='flex items-center justify-end mt-4'>
                     <Link
                         href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className='underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                     >
                         Already registered?
                     </Link>
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <PrimaryButton className='ms-4' disabled={processing}>
                         Register
                     </PrimaryButton>
                 </div>

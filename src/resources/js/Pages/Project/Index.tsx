@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
 import { PageProps } from '@/types';
 import { Project } from '@/types/project';
-import ProjectsTable from '@/Components/ProjectsTable'
+import ProjectsTable from '@/Components/ProjectsTable';
 import Modal from '@/Components/Modal';
 import React, { useState, useEffect } from 'react';
 import TextInput from '@/Components/TextInput';
@@ -10,52 +10,60 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import Message from '@/Components/Message';
 
-export default function ProjectIndex({ auth, projects, message, error_message }: PageProps & { projects: Project[], message?: string, error_message?: string }) {
-    console.log(message)
-    const [isCreate, setIsCreate] = useState<boolean>(false)
+export default function ProjectIndex({
+    auth,
+    projects,
+    message,
+    error_message,
+}: PageProps & {
+    projects: Project[];
+    message?: string;
+    error_message?: string;
+}) {
+    console.log(message);
+    const [isCreate, setIsCreate] = useState<boolean>(false);
 
     const { data, setData, post, processing, errors } = useForm({
-        project_name: ''
-    })
+        project_name: '',
+    });
 
     const openModal = () => {
-        setIsCreate(true)
-    }
+        setIsCreate(true);
+    };
 
     const closeModal = () => {
-        setIsCreate(false)
-    }
+        setIsCreate(false);
+    };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         post('/projects', {
             onSuccess: () => {
                 closeModal();
-                setData('project_name', '')
+                setData('project_name', '');
             },
-        })
-    }
+        });
+    };
 
-    useEffect(() => {
-
-    }, [message, error_message])
-
+    useEffect(() => {}, [message, error_message]);
 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
+            header={
+                <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
+                    Dashboard
+                </h2>
+            }
         >
-            <Head title="Dashboard" />
+            <Head title='Dashboard' />
 
             <Message message={message} error_message={error_message} />
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="overflow-hidden sm:rounded-lg">
+            <div className='py-12'>
+                <div className='max-w-7xl mx-auto sm:px-6 lg:px-8'>
+                    <div className='overflow-hidden sm:rounded-lg'>
                         <p>プロジェクト一覧</p>
-                        <ProjectsTable
-                            projects={projects}
-                        />
+                        <ProjectsTable projects={projects} />
                     </div>
                     <div className='my-12'>
                         <button
@@ -69,21 +77,36 @@ export default function ProjectIndex({ auth, projects, message, error_message }:
                             onClose={closeModal}
                             maxWidth='xl'
                         >
-                            <form onSubmit={handleSubmit} className="w-full max-w-xl my-24 mx-10">
+                            <form
+                                onSubmit={handleSubmit}
+                                className='w-full max-w-xl my-24 mx-10'
+                            >
                                 <div>
                                     <div>
-                                        <InputLabel
-                                            value="プロジェクト名"
-                                        />
-                                        {errors.project_name && <p className="text-red-500">{errors.project_name}</p>}
+                                        <InputLabel value='プロジェクト名' />
+                                        {errors.project_name && (
+                                            <p className='text-red-500'>
+                                                {errors.project_name}
+                                            </p>
+                                        )}
                                         <TextInput
                                             className='w-5/6'
                                             value={data.project_name}
-                                            onChange={(e) => setData('project_name', e.target.value)}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'project_name',
+                                                    e.target.value
+                                                )
+                                            }
                                         ></TextInput>
                                     </div>
                                     <div className='my-5'>
-                                        <PrimaryButton className='bg-blue-500' disabled={processing}>{processing ? '作成中...' : '作成'}</PrimaryButton>
+                                        <PrimaryButton
+                                            className='bg-blue-500'
+                                            disabled={processing}
+                                        >
+                                            {processing ? '作成中...' : '作成'}
+                                        </PrimaryButton>
                                     </div>
                                 </div>
                             </form>
