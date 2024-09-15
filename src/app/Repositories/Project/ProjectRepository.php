@@ -17,8 +17,19 @@ class ProjectRepository implements ProjectRepositoryInterface
         return Project::where('company_id', $companyId)->get();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function storeProject(array $param): void
     {
         Project::create($param);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProject(string $projectId): Project
+    {
+        return Project::findOrFail($projectId);
     }
 }

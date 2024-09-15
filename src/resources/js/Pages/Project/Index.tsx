@@ -4,7 +4,7 @@ import { PageProps } from '@/types';
 import { Project } from '@/types/project';
 import ProjectsTable from '@/Components/ProjectsTable';
 import Modal from '@/Components/Modal';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, FormEventHandler } from 'react';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
@@ -20,7 +20,6 @@ export default function ProjectIndex({
     message?: string;
     error_message?: string;
 }) {
-    console.log(message);
     const [isCreate, setIsCreate] = useState<boolean>(false);
 
     const { data, setData, post, processing, errors } = useForm({
@@ -35,9 +34,9 @@ export default function ProjectIndex({
         setIsCreate(false);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
-        post('/projects', {
+        post(route('projects.store'), {
             onSuccess: () => {
                 closeModal();
                 setData('project_name', '');

@@ -7,14 +7,18 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Usecase\Project\IndexProjectUsecaseInterface;
+use App\Usecase\Project\ShowProjectUsecaseInterface;
 use App\Usecase\Project\StoreProjectUsecaseInterface;
 use App\ViewModels\ProjectIndexViewModel;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
-    public function __construct(private readonly IndexProjectUsecaseInterface $indexProjectUsecase, private readonly StoreProjectUsecaseInterface $storeProjectUsecase)
-    {
+    public function __construct(
+        private readonly IndexProjectUsecaseInterface $indexProjectUsecase,
+        private readonly StoreProjectUsecaseInterface $storeProjectUsecase,
+        private readonly ShowProjectUsecaseInterface $showProjectUsecase,
+    ) {
     }
 
     /**
@@ -52,9 +56,11 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show(string $projectId)
     {
-        //
+        $project = $this->showProjectUsecase->execute($projectId);
+
+        return Inertia::render('Project/Show', ['project' => $project]);
     }
 
     /**
