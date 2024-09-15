@@ -10,10 +10,14 @@ use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Company\CompanyService;
 use App\Services\Company\CompanyServiceInterface;
+use App\Services\Project\ProjectService;
+use App\Services\Project\ProjectServiceInterface;
 use App\Usecase\Company\StoreCompanyUsecase;
 use App\Usecase\Company\StoreCompanyUsecaseInterface;
 use App\Usecase\Project\IndexProjectUsecase;
 use App\Usecase\Project\IndexProjectUsecaseInterface;
+use App\Usecase\Project\ShowProjectUsecase;
+use App\Usecase\Project\ShowProjectUsecaseInterface;
 use App\Usecase\Project\StoreProjectUsecase;
 use App\Usecase\Project\StoreProjectUsecaseInterface;
 use Illuminate\Support\ServiceProvider;
@@ -37,6 +41,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IndexProjectUsecaseInterface::class, IndexProjectUsecase::class);
         $this->app->bind(ProjectRepositoryInterface::class, ProjectRepository::class);
         $this->app->bind(StoreProjectUsecaseInterface::class, StoreProjectUsecase::class);
+        $this->app->bind(ShowProjectUsecaseInterface::class, ShowProjectUsecase::class);
+        $this->app->bind(ProjectServiceInterface::class, ProjectService::class);
     }
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Project;
 
+use App\Models\Project;
 use Illuminate\Support\Collection;
 
 interface ProjectRepositoryInterface
@@ -23,4 +24,12 @@ interface ProjectRepositoryInterface
      * @return void
      */
     public function storeProject(array $param): void;
+
+    /**
+     * プロジェクトをIDから取得
+     *
+     * @param string $projectId
+     * @return Project
+     */
+    public function findProject(string $projectId): Project;
 }
