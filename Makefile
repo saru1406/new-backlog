@@ -1,5 +1,4 @@
 init:
-	sudo chown -R $$(whoami) .git
 	cp .env.example .env
 	@make build
 	@make up
@@ -7,7 +6,7 @@ init:
 	docker compose exec app sh -c "cd src && cp .env.example .env"
 	docker compose exec app sh -c "cd src && php artisan key:generate"
 	docker compose exec app sh -c "cd src && php artisan storage:link"
-	docker compose exec app sh -c "cd src && chmod -R 777 storage bootstrap/cache"
+	docker compose exec --user root app sh -c "cd src && chmod -R 777 storage bootstrap/cache"
 	docker compose exec app sh -c "cd src && npm install"
 	@make fresh
 # create-project:
@@ -20,7 +19,7 @@ init:
 # 	docker compose exec app chmod -R 777 storage bootstrap/cache
 # 	@make fresh
 build:
-	docker compose build
+	docker compose build --build-arg UID=$$(id -u) --build-arg GID=$$(id -g)
 up:
 	docker compose up -d
 stop:

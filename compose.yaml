@@ -11,6 +11,9 @@ services:
     build:
       context: .
       dockerfile: ./infra/docker/php/Dockerfile
+      args:
+        - UID
+        - GID
       target: ${APP_BUILD_TARGET:-development}
     volumes:
       - type: bind
@@ -29,6 +32,8 @@ services:
       - DB_DATABASE=${DB_DATABASE}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
+      - UID=UID
+      - GID=GID
     ports:
       - "5173:5173"
 

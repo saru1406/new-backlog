@@ -34,26 +34,33 @@ RUN <<EOF
   composer config -g repos.packagist composer https://packagist.org
 EOF
 
+# ホストのUIDとGIDを引数として受け取る
+ARG UID
+ARG GID
+
+# ホストのUIDとGIDに基づいたユーザーを作成
+RUN groupadd -g $GID user && useradd -m -u $UID -g $GID user
+
+RUN chown -R user:user /composer
+
 FROM base AS development
 
-RUN <<EOF
-  apt-get -y install --no-install-recommends \
-    default-mysql-client
-  apt-get clean
-  rm -rf /var/lib/apt/lists/*
-EOF
+RUN apt-get update && apt-get -y install --no-install-recommends \
+    default-mysql-client && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
-RUN apt-get install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
+# 作成したユーザーに切り替え
+USER user
 
 COPY ./infra/docker/php/php.development.ini /usr/local/etc/php/php.ini
 
 FROM development AS development-xdebug
 
-RUN <<EOF
-  pecl install xdebug
-  docker-php-ext-enable xdebug
-EOF
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 COPY ./infra/docker/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
