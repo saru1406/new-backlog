@@ -3,6 +3,7 @@
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Project\ProjectController;
+use App\Http\Controllers\Task\TaskController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
     Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
     Route::get('/projects/{projectId}', [ProjectController::class, 'show'])->name('projects.show');
+
+    // Task
+    Route::get('/projects/{projectId}/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
 });
 
 require __DIR__.'/auth.php';

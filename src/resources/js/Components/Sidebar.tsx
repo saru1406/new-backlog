@@ -20,7 +20,7 @@ export default function Sidebar({ project }: { project: Project }) {
                         ダッシュボード
                     </Link>
                     <Link
-                        href='#'
+                        href={route('tasks.create', project.id)}
                         className='hover:text-gray-300 hover:bg-blue-900 block p-5'
                     >
                         課題追加
