@@ -3,19 +3,27 @@ import TextInput from '@/Components/TextInput';
 import ProjectLayout from '@/Layouts/ProjectLayout';
 import { PageProps } from '@/types';
 import { Project } from '@/types/project';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ja } from 'date-fns/locale';
 import { useForm } from '@inertiajs/react';
+import Message from '@/Components/Message';
 
 export default function TaskCreate({
     project,
-}: PageProps & { project: Project }) {
+    message,
+    error_message,
+}: PageProps & {
+    project: Project;
+    message?: string;
+    error_message?: string;
+}) {
     const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(
         null
     );
     const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
+    console.log(error_message)
 
     const handleDate = (
         name: 'start_date' | 'end_date',
@@ -92,6 +100,7 @@ export default function TaskCreate({
                 </h2>
             }
         >
+            <Message message={message} error_message={error_message} />
             <div className='mx-40 my-8'>
                 <form onSubmit={handleSubmit}>
                     <div className='mb-3'>

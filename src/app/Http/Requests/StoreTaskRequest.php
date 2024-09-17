@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Repositories\Task\StoreTaskParams;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreTaskRequest extends FormRequest
@@ -32,5 +33,26 @@ class StoreTaskRequest extends FormRequest
             'start_date' => ['string', 'nullable'],
             'end_date' => ['string', 'nullable'],
         ];
+    }
+
+    /**
+     * ParamsをStoreTaskParamsに格納
+     *
+     * @return StoreTaskParams
+     */
+    public function getParams(): StoreTaskParams
+    {
+        return new StoreTaskParams(
+            project_id: $this->route('projectId'),
+            type_id: $this->input('type_id'),
+            state_id: $this->input('state_id'),
+            manager: $this->input('manager'),
+            priority_id: $this->input('priority_id'),
+            version_id: $this->input('version_id'),
+            title: $this->input('title'),
+            body: $this->input('body'),
+            start_date: $this->input('start_date'),
+            end_date: $this->input('end_date'),
+        );
     }
 }

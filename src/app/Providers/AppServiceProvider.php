@@ -6,12 +6,16 @@ use App\Repositories\Company\CompanyRepository;
 use App\Repositories\Company\CompanyRepositoryInterface;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Project\ProjectRepositoryInterface;
+use App\Repositories\Task\TaskRepository;
+use App\Repositories\Task\TaskRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Company\CompanyService;
 use App\Services\Company\CompanyServiceInterface;
 use App\Services\Project\ProjectService;
 use App\Services\Project\ProjectServiceInterface;
+use App\Services\Task\TaskService;
+use App\Services\Task\TaskServiceInterface;
 use App\Usecase\Company\StoreCompanyUsecase;
 use App\Usecase\Company\StoreCompanyUsecaseInterface;
 use App\Usecase\Project\IndexProjectUsecase;
@@ -20,6 +24,8 @@ use App\Usecase\Project\ShowProjectUsecase;
 use App\Usecase\Project\ShowProjectUsecaseInterface;
 use App\Usecase\Project\StoreProjectUsecase;
 use App\Usecase\Project\StoreProjectUsecaseInterface;
+use App\Usecase\Task\StoreTaskUsecase;
+use App\Usecase\Task\StoreTaskUsecaseInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -43,6 +49,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(StoreProjectUsecaseInterface::class, StoreProjectUsecase::class);
         $this->app->bind(ShowProjectUsecaseInterface::class, ShowProjectUsecase::class);
         $this->app->bind(ProjectServiceInterface::class, ProjectService::class);
+
+        // Task
+        $this->app->bind(StoreTaskUsecaseInterface::class, StoreTaskUsecase::class);
+        $this->app->bind(TaskRepositoryInterface::class, TaskRepository::class);
+        $this->app->bind(TaskServiceInterface::class, TaskService::class);
     }
 
     /**

@@ -23,8 +23,8 @@ return new class extends Migration
             $table->tinyInteger('version_id')->nullable(true);
             $table->string('title');
             $table->longText('body')->nullable(true);
-            $table->string('start_date')->nullable(true);
-            $table->string('end_date')->nullable(true);
+            $table->date('start_date')->nullable(true);
+            $table->date('end_date')->nullable(true);
             $table->timestamps();
         });
     }

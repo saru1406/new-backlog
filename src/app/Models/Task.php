@@ -13,7 +13,7 @@ class Task extends Model
         'user_id',
         'company_id',
         'project_id',
-        'type',
+        'type_id',
         'state_id',
         'manager',
         'priority_id',
