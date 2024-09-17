@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
 
     // Task
     Route::get('/projects/{projectId}/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+    Route::post('/projects/{projectId}/tasks', [TaskController::class, 'store'])->name('tasks.store');
 });
 
 require __DIR__.'/auth.php';

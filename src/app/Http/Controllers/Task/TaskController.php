@@ -7,7 +7,6 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use App\Usecase\Project\ShowProjectUsecaseInterface;
-use App\Usecase\Project\StoreProjectUsecaseInterface;
 use Inertia\Inertia;
 
 class TaskController extends Controller
@@ -31,15 +30,16 @@ class TaskController extends Controller
     public function create(string $projectId)
     {
         $project = $this->showProjectUsecase->execute($projectId);
-        return Inertia::render("Task/Create", ['project' => $project]);
+
+        return Inertia::render('Task/Create', ['project' => $project]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTaskRequest $request)
+    public function store(StoreTaskRequest $request, string $projectId)
     {
-        //
+        dd($request->all());
     }
 
     /**
