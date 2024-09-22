@@ -8,7 +8,9 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use App\Usecase\Project\ShowProjectUsecaseInterface;
+use App\Usecase\Task\BoardTaskUsecaseInterface;
 use App\Usecase\Task\StoreTaskUsecaseInterface;
+use App\ViewModels\Task\TaskBoardViewModel;
 use Inertia\Inertia;
 use Log;
 
@@ -17,15 +19,27 @@ class TaskController extends Controller
     public function __construct(
         private readonly ShowProjectUsecaseInterface $showProjectUsecase,
         private readonly StoreTaskUsecaseInterface $storeTaskUsecase,
+        private readonly BoardTaskUsecaseInterface $boardTaskUsecase,
     ) {
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $projectId)
     {
-        //
+        $project = $this->showProjectUsecase->execute($projectId);
+
+        return Inertia::render('Task/Index', ['project' => $project]);
+    }
+
+    public function board(string $projectId)
+    {
+        $data = $this->boardTaskUsecase->execute($projectId);
+        $viewData = new TaskBoardViewModel($data);
+        dd($viewData);
+
+        return Inertia::render('Task/Board', ['project' => $viewData->project, 'tasks' => $viewData->tasks]);
     }
 
     /**

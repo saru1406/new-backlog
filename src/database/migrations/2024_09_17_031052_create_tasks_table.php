@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignUuid('project_id')->constrained()->cascadeOnDelete();
             $table->tinyInteger('type_id')->nullable(true);
             $table->tinyInteger('state_id')->nullable(true);
-            $table->foreignUuid('manager')->nullable(true)->constrained('users')->cascadeOnDelete();
+            $table->foreignUuid('manager_id')->nullable(true)->constrained('users')->cascadeOnDelete();
             $table->tinyInteger('priority_id')->nullable(true);
             $table->tinyInteger('version_id')->nullable(true);
             $table->string('title');

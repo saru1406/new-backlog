@@ -98,8 +98,8 @@ class StoreTaskParams
         $this->version_id = $version_id;
         $this->title = $title;
         $this->body = $body;
-        $this->start_date = Carbon::parse($start_date)->format('Y-m-d');
-        $this->end_date = Carbon::parse($end_date)->format('Y-m-d');
+        $this->start_date = $start_date ? Carbon::parse($start_date)->format('Y-m-d') : null;
+        $this->end_date = $end_date ? Carbon::parse($end_date)->format('Y-m-d') : null;
     }
 
     /**

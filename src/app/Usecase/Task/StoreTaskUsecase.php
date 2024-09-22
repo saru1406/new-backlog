@@ -43,7 +43,7 @@ class StoreTaskUsecase implements StoreTaskUsecaseInterface
         $paramsArray = $params->toArray();
         $paramsArray['user_id'] = $user->id;
         //TODO 後で担当者修正
-        $paramsArray['manager'] = $user->id;
+        $paramsArray['manager_id'] = $user->id;
         $paramsArray['company_id'] = $user->company_id;
 
         return $paramsArray;

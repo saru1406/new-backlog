@@ -37,8 +37,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/projects/{projectId}', [ProjectController::class, 'show'])->name('projects.show');
 
     // Task
-    Route::get('/projects/{projectId}/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
-    Route::post('/projects/{projectId}/tasks', [TaskController::class, 'store'])->name('tasks.store');
+    Route::group(['prefix' => '/projects/{projectId}'], function () {
+        Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+        Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+        Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+        Route::get('/tasks/board', [TaskController::class, 'board'])->name('tasks.board');
+    });
 });
 
 require __DIR__.'/auth.php';

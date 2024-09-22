@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories\Task;
 
 use App\Models\Company;
+use Illuminate\Support\Collection;
 
 interface TaskRepositoryInterface
 {
@@ -28,4 +29,14 @@ interface TaskRepositoryInterface
      * @return void
      */
     public function store(array $params): void;
+
+    /**
+     * プロジェクトIDからタスクを取得
+     *
+     * @param string $projectId
+     * @param array $params
+     * @param array $columns
+     * @return Collection
+     */
+    public function fetchTaskByProjectId(string $projectId, array $params = [], array $columns = ['*']): Collection;
 }

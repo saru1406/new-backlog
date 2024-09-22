@@ -13,9 +13,10 @@ interface ProjectRepositoryInterface
      * 企業IDによるプロジェクトを取得
      *
      * @param string $companyId
+     * @param array $columns
      * @return Collection
      */
-    public function projectByCompanyId(string $companyId): Collection;
+    public function projectByCompanyId(string $companyId, $columns = ['*']): Collection;
 
     /**
      * プロジェクトを保存
@@ -29,7 +30,8 @@ interface ProjectRepositoryInterface
      * プロジェクトをIDから取得
      *
      * @param string $projectId
+     * @param array $columns
      * @return Project
      */
-    public function findProject(string $projectId): Project;
+    public function findProject(string $projectId, $columns = ['*']): Project;
 }
