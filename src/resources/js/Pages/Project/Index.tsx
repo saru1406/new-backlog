@@ -44,8 +44,6 @@ export default function ProjectIndex({
         });
     };
 
-    useEffect(() => {}, [message, error_message]);
-
     return (
         <AuthenticatedLayout
             user={auth.user}

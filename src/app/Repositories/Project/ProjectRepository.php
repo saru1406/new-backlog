@@ -12,9 +12,9 @@ class ProjectRepository implements ProjectRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function projectByCompanyId(string $companyId): Collection
+    public function projectByCompanyId(string $companyId, $columns = ['*']): Collection
     {
-        return Project::where('company_id', $companyId)->get();
+        return Project::where('company_id', $companyId)->select($columns)->get();
     }
 
     /**
@@ -28,8 +28,8 @@ class ProjectRepository implements ProjectRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function findProject(string $projectId): Project
+    public function findProject(string $projectId, $columns = ['*']): Project
     {
-        return Project::findOrFail($projectId);
+        return Project::select($columns)->findOrFail($projectId);
     }
 }
