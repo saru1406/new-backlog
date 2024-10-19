@@ -26,13 +26,13 @@ export default function Sidebar({ project }: { project: Project }) {
                         課題追加
                     </Link>
                     <Link
-                        href='#'
+                        href={route('tasks.index', project.id)}
                         className='hover:text-gray-300 hover:bg-blue-900 block p-5'
                     >
                         課題一覧
                     </Link>
                     <Link
-                        href='#'
+                        href={route('tasks.board', project.id)}
                         className='hover:text-gray-300 hover:bg-blue-900 block p-5'
                     >
                         ボード

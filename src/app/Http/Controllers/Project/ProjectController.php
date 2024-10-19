@@ -28,7 +28,10 @@ class ProjectController extends Controller
     {
         $projects = $this->indexProjectUsecase->execute();
 
-        return Inertia::render('Project/Index', ['projects' => (new ProjectIndexViewModel($projects))->render()]);
+        return Inertia::render('Project/Index', [
+            'projects' => (new ProjectIndexViewModel($projects))->render(),
+            'message' => session('message'),
+        ]);
     }
 
     /**
@@ -47,10 +50,9 @@ class ProjectController extends Controller
         $this->storeProjectUsecase->execute($request->getProject_name());
         $projects = $this->indexProjectUsecase->execute();
 
-        return Inertia::render('Project/Index', [
-            'message' => 'プロジェクトが作成されました',
+        return to_route('projects.index', [
             'projects' => (new ProjectIndexViewModel($projects))->render(),
-        ]);
+        ])->with('message', 'プロジェクトが作成されました');
     }
 
     /**

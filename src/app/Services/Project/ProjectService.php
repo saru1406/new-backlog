@@ -20,7 +20,7 @@ class ProjectService implements ProjectServiceInterface
      */
     public function fetchProject(User $user, string $projectId): Project
     {
-        $project = $this->projectRepository->findProject($projectId);
+        $project = $this->projectRepository->findProject($projectId, ['id', 'company_id', 'project_name']);
         $this->checkProjectByCompany($user, $project);
 
         return $project;

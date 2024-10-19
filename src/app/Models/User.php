@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -54,8 +55,28 @@ class User extends Authenticatable
      *
      * @return BelongsTo
      */
-    public function Company(): BelongsTo
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * タスク登録者と紐づけ
+     *
+     * @return HasMany
+     */
+    public function tasksCreated(): HasMany
+    {
+        return $this->hasMany(Task::class, 'user_id');
+    }
+
+    /**
+     * タスク担当者と紐づけ
+     *
+     * @return HasMany
+     */
+    public function tasksManaged(): HasMany
+    {
+        return $this->hasMany(Task::class, 'manager_id');
     }
 }
