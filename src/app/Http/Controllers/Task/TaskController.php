@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use App\Usecase\Project\ShowProjectUsecaseInterface;
 use App\Usecase\Task\BoardTaskUsecaseInterface;
+use App\Usecase\Task\IndexTaskUsecase;
 use App\Usecase\Task\StoreTaskUsecaseInterface;
 use App\ViewModels\Task\TaskBoardViewModel;
 use Inertia\Inertia;
@@ -20,6 +21,7 @@ class TaskController extends Controller
         private readonly ShowProjectUsecaseInterface $showProjectUsecase,
         private readonly StoreTaskUsecaseInterface $storeTaskUsecase,
         private readonly BoardTaskUsecaseInterface $boardTaskUsecase,
+        private readonly IndexTaskUsecase $indexTaskUsecase,
     ) {
     }
 
@@ -29,8 +31,9 @@ class TaskController extends Controller
     public function index(string $projectId)
     {
         $project = $this->showProjectUsecase->execute($projectId);
+        $tasks = $this->indexTaskUsecase->execute($projectId);
 
-        return Inertia::render('Task/Index', ['project' => $project]);
+        return Inertia::render('Task/Index', ['project' => $project, 'tasks' => $tasks]);
     }
 
     public function board(string $projectId)

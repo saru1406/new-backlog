@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         Company::all()->each(function (Company $company) {
-            User::factory()->count(200)->create(['company_id' => $company->id]);
+            User::factory()->count(100)->create(['company_id' => $company->id]);
         });
     }
 }

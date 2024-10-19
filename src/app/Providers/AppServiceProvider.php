@@ -26,6 +26,8 @@ use App\Usecase\Project\StoreProjectUsecase;
 use App\Usecase\Project\StoreProjectUsecaseInterface;
 use App\Usecase\Task\BoardTaskUsecase;
 use App\Usecase\Task\BoardTaskUsecaseInterface;
+use App\Usecase\Task\IndexTaskUsecase;
+use App\Usecase\Task\IndexTaskUsecaseInterface;
 use App\Usecase\Task\StoreTaskUsecase;
 use App\Usecase\Task\StoreTaskUsecaseInterface;
 use Illuminate\Support\ServiceProvider;
@@ -57,6 +59,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TaskRepositoryInterface::class, TaskRepository::class);
         $this->app->bind(TaskServiceInterface::class, TaskService::class);
         $this->app->bind(BoardTaskUsecaseInterface::class, BoardTaskUsecase::class);
+        $this->app->bind(IndexTaskUsecaseInterface::class, IndexTaskUsecase::class);
     }
 
     /**

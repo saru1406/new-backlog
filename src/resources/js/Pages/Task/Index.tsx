@@ -1,7 +1,11 @@
 import ProjectLayout from "@/Layouts/ProjectLayout";
 import { Project } from "@/types/project";
+import { Task } from "@/types/task";
+import { Link } from "@inertiajs/react";
+import { Pagination } from "@/types/pagination";
 
-export default function TaskIndex({ project }: { project: Project }) {
+export default function TaskIndex({ project, tasks }: { project: Project, tasks: Pagination<Task> }) {
+    console.log(tasks)
     return (
         <ProjectLayout
             project={project}
@@ -27,25 +31,35 @@ export default function TaskIndex({ project }: { project: Project }) {
                     </select>
                 </div>
                 <div className="my-10">
-                    <table className="border-collapse border border-gray-500 w-full mx-auto">
-                        <thead>
+                    <table className="border-collapse border border-gray-300 w-full mx-auto bg-white text-sm rounded-lg">
+                        <thead className="text-left shadow-sm text-teal-500">
                             <tr>
-                                <th className="border border-gray-500 bg-white">ヘッダー 1</th>
-                                <th className="border border-gray-500 bg-white">ヘッダー 2</th>
+                                <th className="py-3 px-2">番号</th>
+                                <th className="py-3 px-2">件名</th>
+                                <th className="py-3 px-2">種別</th>
+                                <th className="py-3 px-2">状態</th>
+                                <th className="py-3 px-2">優先度</th>
+                                <th className="py-3 px-2">担当者</th>
+                                <th className="py-3 px-2">発生バージョン</th>
+                                <th className="py-3 px-2">開始日</th>
+                                <th className="py-3 px-2">期限日</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td className="border border-gray-500">本体 1</td>
-                                <td className="border border-gray-500">本体 2</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td className="border border-gray-500">フッター 1</td>
-                                <td className="border border-gray-500">フッター 2</td>
-                            </tr>
-                        </tfoot>
+                        {tasks.data.map((task) => (
+                            <tbody key={task.id} className="border border-gray-300">
+                                <tr>
+                                    <td className="py-3 px-2"><Link href='#' className="text-blue-600">{task.id}</Link></td>
+                                    <td className="py-3 px-2">{task.title}</td>
+                                    <td className="py-3 px-2">{task.type_id}</td>
+                                    <td className="py-3 px-2">{task.state_id}</td>
+                                    <td className="py-3 px-2">{task.priority_id}</td>
+                                    <td className="py-3 px-2">{task.manager.name}</td>
+                                    <td className="py-3 px-2">{task.version_id}</td>
+                                    <td className="py-3 px-2">{task.start_date}</td>
+                                    <td className="py-3 px-2">{task.end_date}</td>
+                                </tr>
+                            </tbody>
+                        ))}
                     </table>
                 </div>
             </div>

@@ -15,7 +15,7 @@ class ProjectSeeder extends Seeder
     public function run(): void
     {
         Company::all()->each(function (Company $company) {
-            Project::factory()->count(10)->create(['company_id' => $company->id]);
+            Project::factory()->count(5)->create(['company_id' => $company->id]);
         });
     }
 }

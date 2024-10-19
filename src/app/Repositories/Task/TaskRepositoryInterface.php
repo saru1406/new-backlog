@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories\Task;
 
 use App\Models\Company;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 interface TaskRepositoryInterface
@@ -36,7 +37,15 @@ interface TaskRepositoryInterface
      * @param string $projectId
      * @param array $params
      * @param array $columns
-     * @return Collection
+     * @param ?int $page
+     * @return LengthAwarePaginator
      */
-    public function fetchTaskByProjectId(string $projectId, array $params = [], array $columns = ['*']): Collection;
+    public function fetchTaskByProjectId(string $projectId, array $params = [], array $columns = ['*'], ?int $page = null): LengthAwarePaginator;
+
+    /**
+     * プロジェクトIDからタスクIDの最大値を取得
+     * @param string $projectId
+     * @return int
+     */
+    public function fetchTaskMaxIdByProjectId(string $projectId): int;
 }
