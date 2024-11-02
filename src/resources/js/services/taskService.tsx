@@ -6,7 +6,6 @@ export const fetchApi = async (url: string) => {
     });
 };
 
-
 export const patchApi = (url: string) => {
     return axios.patch(`${url}`, {
         withCredentials: true,
