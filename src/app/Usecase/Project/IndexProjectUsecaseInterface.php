@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 interface IndexProjectUsecaseInterface
 {
     /**
-     *プロジェクトのIndexビューで使用
+     * プロジェクトのIndexビューで使用
      *
      * @return Collection
      */

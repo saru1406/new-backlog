@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('user_id')->constrained();
             $table->foreignUuid('company_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('project_id')->constrained()->cascadeOnDelete();
-            $table->tinyInteger('type_id')->nullable(true);
-            $table->tinyInteger('state_id')->nullable(true);
-            $table->foreignUuid('manager_id')->nullable(true)->constrained('users')->cascadeOnDelete();
-            $table->tinyInteger('priority_id')->nullable(true);
-            $table->tinyInteger('version_id')->nullable(true);
+            $table->foreignId('type_id');
+            $table->foreignId('state_id');
+            $table->foreignUuid('manager_id')->nullable(true)->constrained('users');
+            $table->foreignId('priority_id');
+            $table->foreignId('version_id')->nullable(true);
             $table->string('title');
             $table->longText('body')->nullable(true);
             $table->date('start_date')->nullable(true);

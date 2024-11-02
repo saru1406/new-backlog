@@ -44,4 +44,44 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'manager_id');
     }
+
+    /**
+     * 状態と紐づけ
+     *
+     * @return BelongsTo
+     */
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(State::class);
+    }
+
+    /**
+     * 優先度と紐づけ
+     *
+     * @return BelongsTo
+     */
+    public function priority(): BelongsTo
+    {
+        return $this->belongsTo(Priority::class);
+    }
+
+    /**
+     * 種別と紐づけ
+     *
+     * @return BelongsTo
+     */
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(Type::class);
+    }
+
+    /**
+     * バージョンと紐づけ
+     *
+     * @return BelongsTo
+     */
+    public function version(): BelongsTo
+    {
+        return $this->belongsTo(Version::class);
+    }
 }

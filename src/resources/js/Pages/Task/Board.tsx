@@ -1,9 +1,14 @@
 import ProjectLayout from "@/Layouts/ProjectLayout";
 import { Project } from "@/types/project";
 import { Task } from "@/types/task";
+import { useFetchTasks } from "@/hooks/useFetchTaskBoard"
+import axios from "axios";
+import { useEffect, useState } from 'react';
 
-export default function TaskBoard({ project, tasks }: { project: Project; tasks:Task[] }) {
+export default function TaskBoard({ project }: { project: Project }) {
+    const tasks = useFetchTasks(project.id)
     console.log(tasks)
+
     return (
         <ProjectLayout
             project={project}

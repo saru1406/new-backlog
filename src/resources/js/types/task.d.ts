@@ -1,9 +1,15 @@
 export type Task = {
     id: number;
     title: string;
-    type_id: number;
-    state_id: number;
-    priority_id: number;
+    priority: {
+        priority_name: string
+    };
+    state: {
+        state_name: string
+    };
+    type: {
+        type_name: string
+    };
     manager: {
         id: number;
         name: string;

@@ -32,7 +32,7 @@ interface TaskRepositoryInterface
     public function store(array $params): void;
 
     /**
-     * プロジェクトIDからタスクを取得
+     * プロジェクトIDからタスクをページネーションで取得
      *
      * @param string $projectId
      * @param array $params
@@ -40,12 +40,34 @@ interface TaskRepositoryInterface
      * @param ?int $page
      * @return LengthAwarePaginator
      */
-    public function fetchTaskByProjectId(string $projectId, array $params = [], array $columns = ['*'], ?int $page = null): LengthAwarePaginator;
+    public function fetchTaskByProjectIdWithPagination(string $projectId, array $params = [], array $columns = ['*'], ?int $page = null): LengthAwarePaginator;
 
     /**
      * プロジェクトIDからタスクIDの最大値を取得
+     *
      * @param string $projectId
      * @return int
      */
     public function fetchTaskMaxIdByProjectId(string $projectId): int;
+
+    /**
+     * プロジェクトIDからタスクを取得
+     *
+     * @param string $projectId
+     * @param array $params
+     * @param array $columns
+     * @return Collection
+     */
+    public function fetchTaskByProjectId(string $projectId, array $params = [], array $columns = ['*']): Collection;
+
+    /**
+     * プロジェクトIDからタスクボードを取得
+     *
+     * @param FetchTaskBoardParams $params
+     * @param array $with
+     * @param array $columns
+     * @param ?int $page
+     * @return LengthAwarePaginator
+     */
+    public function fetchTaskBoarByProjectId(FetchTaskBoardParams $params, array $with = [], array $columns = ['*'], ?int $perPage = null): LengthAwarePaginator;
 }

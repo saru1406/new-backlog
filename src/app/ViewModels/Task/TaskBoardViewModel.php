@@ -20,7 +20,7 @@ class TaskBoardViewModel
         $this->tasks = $this->formatTasks($data['tasks']);
     }
 
-    public function formatProject(Project $project): array
+    private function formatProject(Project $project): array
     {
         return [
             'id' => $project->id,
@@ -28,7 +28,7 @@ class TaskBoardViewModel
         ];
     }
 
-    public function formatTasks(Collection $tasks): Collection
+    private function formatTasks(Collection $tasks): Collection
     {
         return $tasks->map(function (Task $task): array {
             return [
