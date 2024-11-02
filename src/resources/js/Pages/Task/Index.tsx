@@ -3,8 +3,11 @@ import { Project } from "@/types/project";
 import { Task } from "@/types/task";
 import { Link } from "@inertiajs/react";
 import { Pagination } from "@/types/pagination";
+import { State } from "@/types/state";
+import { Type } from "@/types/type";
+import { Priority } from "@/types/priority";
 
-export default function TaskIndex({ project, tasks, states, types, priorities }: { project: Project, tasks: Pagination<Task> }) {
+export default function TaskIndex({ project, tasks, states, types, priorities }: { project: Project, tasks: Pagination<Task>, states: State[], types: Type[], priorities: Priority[] }) {
     console.log(states)
     return (
         <ProjectLayout
