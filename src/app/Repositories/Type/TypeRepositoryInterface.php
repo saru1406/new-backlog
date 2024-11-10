@@ -13,7 +13,7 @@ interface TypeRepositoryInterface
      *
      * @param string $projectId
      * @param array $columns
-     * @return Collection
+     * @return Collection<\App\Models\Type>
      */
-    public function fetchTypeByProjectId(string $projectId, $columns = ['*']): Collection;
+    public function fetchTypeByProjectId(string $projectId, array $columns = ['*']): Collection;
 }

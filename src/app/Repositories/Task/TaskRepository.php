@@ -7,6 +7,7 @@ namespace App\Repositories\Task;
 use App\Models\Task;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class TaskRepository implements TaskRepositoryInterface
 {
@@ -74,9 +75,10 @@ class TaskRepository implements TaskRepositoryInterface
         if ($params->type_id) {
             $query->where('type_id', $params->type_id);
         }
-        if ($params->manager) {
-            $query->where('manager', $params->manager);
+        if ($params->manager_id) {
+            $query->where('manager_id', $params->manager_id);
         }
+        Log::info($params->toArray());
 
         return $query
             ->select($columns)

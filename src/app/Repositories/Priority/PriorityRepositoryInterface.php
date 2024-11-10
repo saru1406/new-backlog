@@ -13,7 +13,7 @@ interface PriorityRepositoryInterface
      *
      * @param string $projectId
      * @param array $columns
-     * @return Collection
+     * @return Collection<\App\Models\Priority>
      */
-    public function fetchPriorityByProjectId(string $projectId, $columns = ['*']): Collection;
+    public function fetchPriorityByProjectId(string $projectId, array $columns = ['*']): Collection;
 }

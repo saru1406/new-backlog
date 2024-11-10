@@ -21,8 +21,8 @@ class FetchTaskBoardUsecase implements FetchTaskBoardUsecaseInterface
     {
         return $this->taskRepository->fetchTaskBoarByProjectId(
             $params,
-            ['manager'],
-            ['id', 'user_id', 'project_id', 'type_id', 'state_id', 'priority_id', 'version_id', 'title', 'body', 'start_date', 'end_date'],
+            ['manager:id,name'],
+            ['id', 'user_id', 'project_id', 'type_id', 'state_id', 'priority_id', 'version_id', 'manager_id', 'title', 'body', 'start_date', 'end_date'],
             10
         );
     }

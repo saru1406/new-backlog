@@ -32,7 +32,7 @@ class FetchTaskBoardParams
      *
      * @var string|null
      */
-    public readonly ?string $manager;
+    public readonly ?string $manager_id;
 
     /**
      * 優先度ID
@@ -54,7 +54,7 @@ class FetchTaskBoardParams
      * @param string $project_id
      * @param ?int $type_id
      * @param ?int $state_id
-     * @param ?string $manager
+     * @param ?string $manager_id
      * @param ?int $priority_id
      * @param ?int $version_id
      */
@@ -62,14 +62,14 @@ class FetchTaskBoardParams
         string $project_id,
         ?int $type_id,
         ?int $state_id,
-        ?string $manager,
+        ?string $manager_id,
         ?int $priority_id,
         ?int $version_id,
     ) {
         $this->project_id = $project_id;
         $this->type_id = $type_id;
         $this->state_id = $state_id;
-        $this->manager = $manager;
+        $this->manager_id = $manager_id;
         $this->priority_id = $priority_id;
         $this->version_id = $version_id;
     }
@@ -85,7 +85,7 @@ class FetchTaskBoardParams
             'project_id' => $this->project_id,
             'type_id' => $this->type_id,
             'state_id' => $this->state_id,
-            'manager' => $this->manager,
+            'manager_id' => $this->manager_id,
             'priority_id' => $this->priority_id,
             'version_id' => $this->version_id,
         ];

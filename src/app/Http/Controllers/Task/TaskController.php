@@ -42,9 +42,14 @@ class TaskController extends Controller
 
     public function board(string $projectId)
     {
-        $project = $this->showProjectUsecase->execute($projectId);
+        $data = $this->boardTaskUsecase->execute($projectId);
 
-        return Inertia::render('Task/Board', ['project' => $project]);
+        return Inertia::render('Task/Board', [
+            'project' => $data['project'],
+            'states' => $data['states'],
+            'types' => $data['types'],
+            'priorities' => $data['priorities'],
+        ]);
     }
 
     /**

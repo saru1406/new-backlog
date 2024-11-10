@@ -6,6 +6,7 @@ namespace App\Repositories\User;
 
 use App\Models\Company;
 use App\Models\User;
+use Illuminate\Support\Collection;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -15,5 +16,13 @@ class UserRepository implements UserRepositoryInterface
     public function updateUserCompanyId(Company $company, string $userId): void
     {
         User::findOrFail($userId)->update(['company_id' => $company->id]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function fetchUserByProjectId(string $projectId, array $columns = ['*']): Collection
+    {
+        return User::where('project_id', $projectId)->select($columns)->get();
     }
 }

@@ -13,7 +13,7 @@ interface StateRepositoryInterface
      *
      * @param string $projectId
      * @param array $columns
-     * @return Collection
+     * @return Collection<\App\Models\State>
      */
-    public function fetchStateByProjectId(string $projectId, $columns = ['*']): Collection;
+    public function fetchStateByProjectId(string $projectId, array $columns = ['*']): Collection;
 }

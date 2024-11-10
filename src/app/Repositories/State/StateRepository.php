@@ -12,7 +12,7 @@ class StateRepository implements StateRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function fetchStateByProjectId(string $projectId, $columns = ['*']): Collection
+    public function fetchStateByProjectId(string $projectId, array $columns = ['*']): Collection
     {
         return State::where('project_id', $projectId)->select($columns)->get();
     }

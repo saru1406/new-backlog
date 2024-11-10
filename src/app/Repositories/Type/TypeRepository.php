@@ -12,7 +12,7 @@ class TypeRepository implements TypeRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function fetchTypeByProjectId(string $projectId, $columns = ['*']): Collection
+    public function fetchTypeByProjectId(string $projectId, array $columns = ['*']): Collection
     {
         return Type::where('project_id', $projectId)->select($columns)->get();
     }

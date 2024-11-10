@@ -1,31 +1,24 @@
-import { useState, useEffect } from 'react';
 import { fetchApi } from '@/services/taskService';
 import { Task } from '@/types/task';
 import { Pagination } from '@/types/pagination';
 
-export const useFetchTasks = (projectId: string) => {
-    const [tasks, setTasks] = useState<Pagination<Task> | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<Error | null>(null);
-    const url = `/api/v1/projects/${projectId}/tasks/fetch-board`;
+export const useFetchTasks = async (
+    projectId: string,
+    stateId: number,
+    typeId: number | null = null,
+    priorityId: number | null = null,
+    managerId: number | null = null,
+): Promise<Pagination<Task> | null> => {
+    const base = `/api/v1/projects/${projectId}/tasks/fetch-board`;
+    const params = new URLSearchParams({
+        state_id: stateId.toString(),
+    });
 
-    useEffect(() => {
-        const loadTasks = async () => {
-            setLoading(true);
-            try {
-                const response = await fetchApi(url);
-                setTasks(response.data);
-            } catch (err) {
-                setError(err as Error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    if (typeId !== null) params.append('type_id', typeId.toString());
+    if (priorityId !== null) params.append('priority_id', priorityId.toString());
+    if (managerId !== null) params.append('manager_id', managerId.toString());
+    const url = `${base}?${params.toString()}`;
 
-        if (projectId) {
-            loadTasks();
-        }
-    }, [projectId]);
-
-    return { tasks, loading, error };
+    const response = await fetchApi(url);
+    return response.data;
 };

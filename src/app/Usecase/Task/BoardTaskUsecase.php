@@ -4,15 +4,25 @@ declare(strict_types=1);
 
 namespace App\Usecase\Task;
 
+use App\Repositories\Priority\PriorityRepositoryInterface;
+use App\Repositories\State\StateRepositoryInterface;
 use App\Repositories\Task\TaskRepositoryInterface;
+use App\Repositories\Type\TypeRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Project\ProjectServiceInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class BoardTaskUsecase implements BoardTaskUsecaseInterface
 {
-    public function __construct(private readonly TaskRepositoryInterface $taskRepository, private readonly ProjectServiceInterface $projectService)
-    {
+    public function __construct(
+        private readonly TaskRepositoryInterface $taskRepository,
+        private readonly ProjectServiceInterface $projectService,
+        private readonly StateRepositoryInterface $stateRepository,
+        private readonly TypeRepositoryInterface $typeRepository,
+        private readonly PriorityRepositoryInterface $priorityRepository,
+        private readonly UserRepositoryInterface $userRepository,
+    ) {
     }
 
     /**
@@ -23,9 +33,12 @@ class BoardTaskUsecase implements BoardTaskUsecaseInterface
         $user = Auth::user();
 
         $project = $this->projectService->fetchProject($user, $projectId);
+        $states = $this->stateRepository->fetchStateByProjectId($projectId);
+        $types = $this->typeRepository->fetchTypeByProjectId($projectId);
+        $priorities = $this->priorityRepository->fetchPriorityByProjectId($projectId);
+        // $managers = $this->userRepository->fetchUserByProjectId($projectId, ['id', 'name']);
 
-        $tasks = $this->taskRepository->fetchTaskByProjectId($projectId, ['user', 'manager']);
-
-        return collect(['project' => $project, 'tasks' => $tasks]);
+        // return Collect(['project' => $project, 'states' => $states, 'types' => $types, 'priorities' => $priorities, 'managers' => $managers]);
+        return Collect(['project' => $project, 'states' => $states, 'types' => $types, 'priorities' => $priorities]);
     }
 }

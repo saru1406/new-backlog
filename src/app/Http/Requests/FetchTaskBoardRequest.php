@@ -25,7 +25,7 @@ class FetchTaskBoardRequest extends FormRequest
         return [
             'type_id' => ['integer', 'nullable'],
             'state_id' => ['integer', 'nullable'],
-            'manager' => ['string', 'nullable'],
+            'manager_id' => ['string', 'nullable'],
             'priority_id' => ['integer', 'nullable'],
             'version_id' => ['integer', 'nullable'],
         ];
@@ -42,7 +42,7 @@ class FetchTaskBoardRequest extends FormRequest
             project_id: $this->route('projectId'),
             type_id: $this->query('type_id'),
             state_id: $this->query('state_id'),
-            manager: $this->query('manager'),
+            manager_id: $this->query('manager_id'),
             priority_id: $this->query('priority_id'),
             version_id: $this->query('version_id'),
         );

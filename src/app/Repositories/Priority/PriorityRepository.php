@@ -12,7 +12,7 @@ class PriorityRepository implements PriorityRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function fetchPriorityByProjectId(string $projectId, $columns = ['*']): Collection
+    public function fetchPriorityByProjectId(string $projectId, array $columns = ['*']): Collection
     {
         return Priority::where('project_id', $projectId)->select($columns)->get();
     }
