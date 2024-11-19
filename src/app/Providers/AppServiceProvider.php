@@ -4,10 +4,16 @@ namespace App\Providers;
 
 use App\Repositories\Company\CompanyRepository;
 use App\Repositories\Company\CompanyRepositoryInterface;
+use App\Repositories\Priority\PriorityRepository;
+use App\Repositories\Priority\PriorityRepositoryInterface;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Project\ProjectRepositoryInterface;
+use App\Repositories\State\StateRepository;
+use App\Repositories\State\StateRepositoryInterface;
 use App\Repositories\Task\TaskRepository;
 use App\Repositories\Task\TaskRepositoryInterface;
+use App\Repositories\Type\TypeRepository;
+use App\Repositories\Type\TypeRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Company\CompanyService;
@@ -26,6 +32,8 @@ use App\Usecase\Project\StoreProjectUsecase;
 use App\Usecase\Project\StoreProjectUsecaseInterface;
 use App\Usecase\Task\BoardTaskUsecase;
 use App\Usecase\Task\BoardTaskUsecaseInterface;
+use App\Usecase\Task\FetchTaskBoardUsecase;
+use App\Usecase\Task\FetchTaskBoardUsecaseInterface;
 use App\Usecase\Task\IndexTaskUsecase;
 use App\Usecase\Task\IndexTaskUsecaseInterface;
 use App\Usecase\Task\StoreTaskUsecase;
@@ -60,6 +68,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TaskServiceInterface::class, TaskService::class);
         $this->app->bind(BoardTaskUsecaseInterface::class, BoardTaskUsecase::class);
         $this->app->bind(IndexTaskUsecaseInterface::class, IndexTaskUsecase::class);
+        $this->app->bind(FetchTaskBoardUsecaseInterface::class, FetchTaskBoardUsecase::class);
+
+        // State
+        $this->app->bind(StateRepositoryInterface::class, StateRepository::class);
+
+        // Priority
+        $this->app->bind(PriorityRepositoryInterface::class, PriorityRepository::class);
+
+        // Type
+        $this->app->bind(TypeRepositoryInterface::class, TypeRepository::class);
     }
 
     /**

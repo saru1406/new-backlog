@@ -64,10 +64,9 @@ optimize:
 optimize-clear:
 	docker compose exec app sh -c "cd src && php artisan optimize:clear"
 cache:
-	docker compose exec app sh -c "cd src && composer dump-autoload -o"
-	@make optimize
-	docker compose exec app sh -c "cd src && php artisan event:cache"
-	docker compose exec app sh -c "cd src && php artisan view:cache"
+	docker compose exec app sh -c "cd src && php artisan config:cache"
+	docker compose exec app sh -c "cd src && php artisan route:cache"
+	docker compose exec app sh -c "cd src && php artisan cache:clear"
 cache-clear:
 	docker compose exec app sh -c "cd src && composer clear-cache"
 	@make optimize-clear

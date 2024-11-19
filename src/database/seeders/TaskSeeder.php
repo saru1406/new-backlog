@@ -17,12 +17,18 @@ class TaskSeeder extends Seeder
         User::all()->each(function (User $user) {
             Project::all()->each(function (Project $project) use ($user) {
                 if ($project->company_id === $user->company_id) {
-                    Task::factory()->count(100)->create([
-                        'project_id' => $project->id,
-                        'user_id' => $user->id,
-                        'company_id' => $user->company_id,
-                        'manager_id' => $user->id
-                    ]);
+                    $company = $user->company;
+                    for ($i = 0; $i < 100; $i++) {
+                        Task::factory()->create([
+                            'project_id' => $project->id,
+                            'user_id' => $user->id,
+                            'company_id' => $user->company_id,
+                            'manager_id' => $company->users->random()->id,
+                            'state_id' => $project->states->random()->id,
+                            'type_id' => $project->types->random()->id,
+                            'priority_id' => $project->priorities->random()->id,
+                        ]);
+                    }
                 }
             });
         });

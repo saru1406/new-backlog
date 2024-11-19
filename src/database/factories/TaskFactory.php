@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Priority;
+use App\Models\State;
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,10 +20,6 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'type_id' => $this->faker->randomNumber(1,100),
-            'state_id' => $this->faker->randomNumber(1,100),
-            'priority_id' => $this->faker->randomNumber(1,100),
-            'version_id' => $this->faker->randomNumber(1,100),
             'title' => $this->faker->realText(20),
             'body' => $this->faker->text(),
             'start_date' => $this->faker->date(max: '2025-12-31'),

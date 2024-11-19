@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model
 {
@@ -24,5 +25,45 @@ class Project extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * 状態と紐づけ
+     *
+     * @return HasMany
+     */
+    public function states(): HasMany
+    {
+        return $this->hasMany(State::class);
+    }
+
+    /**
+     * 優先度と紐づけ
+     *
+     * @return HasMany
+     */
+    public function priorities(): HasMany
+    {
+        return $this->hasMany(Priority::class);
+    }
+
+    /**
+     * 種別と紐づけ
+     *
+     * @return HasMany
+     */
+    public function types(): HasMany
+    {
+        return $this->hasMany(Type::class);
+    }
+
+    /**
+     * バージョンと紐づけ
+     *
+     * @return HasMany
+     */
+    public function versions(): HasMany
+    {
+        return $this->hasMany(Version::class);
     }
 }

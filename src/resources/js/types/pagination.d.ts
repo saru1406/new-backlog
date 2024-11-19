@@ -5,7 +5,7 @@ export type Pagination<T> = {
     from: number | null;
     last_page: number;
     last_page_url: string;
-    links: Link[]
+    links: Link[];
     next_page_url: string | null;
     path: string;
     per_page: number;
@@ -18,4 +18,4 @@ type Link = {
     active: boolean;
     label: string;
     url: string;
-}
+};

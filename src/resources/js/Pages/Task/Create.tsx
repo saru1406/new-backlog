@@ -23,7 +23,7 @@ export default function TaskCreate({
         null
     );
     const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
-    console.log(error_message)
+    console.log(error_message);
 
     const handleDate = (
         name: 'start_date' | 'end_date',

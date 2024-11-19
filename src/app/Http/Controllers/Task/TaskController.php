@@ -9,9 +9,8 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use App\Usecase\Project\ShowProjectUsecaseInterface;
 use App\Usecase\Task\BoardTaskUsecaseInterface;
-use App\Usecase\Task\IndexTaskUsecase;
+use App\Usecase\Task\IndexTaskUsecaseInterface;
 use App\Usecase\Task\StoreTaskUsecaseInterface;
-use App\ViewModels\Task\TaskBoardViewModel;
 use Inertia\Inertia;
 use Log;
 
@@ -21,7 +20,7 @@ class TaskController extends Controller
         private readonly ShowProjectUsecaseInterface $showProjectUsecase,
         private readonly StoreTaskUsecaseInterface $storeTaskUsecase,
         private readonly BoardTaskUsecaseInterface $boardTaskUsecase,
-        private readonly IndexTaskUsecase $indexTaskUsecase,
+        private readonly IndexTaskUsecaseInterface $indexTaskUsecase,
     ) {
     }
 
@@ -30,19 +29,27 @@ class TaskController extends Controller
      */
     public function index(string $projectId)
     {
-        $project = $this->showProjectUsecase->execute($projectId);
-        $tasks = $this->indexTaskUsecase->execute($projectId);
+        $data = $this->indexTaskUsecase->execute($projectId);
 
-        return Inertia::render('Task/Index', ['project' => $project, 'tasks' => $tasks]);
+        return Inertia::render('Task/Index', [
+            'project' => $data['project'],
+            'tasks' => $data['tasks'],
+            'states' => $data['states'],
+            'types' => $data['types'],
+            'priorities' => $data['priorities'],
+        ]);
     }
 
     public function board(string $projectId)
     {
         $data = $this->boardTaskUsecase->execute($projectId);
-        $viewData = new TaskBoardViewModel($data);
-        dd($viewData);
 
-        return Inertia::render('Task/Board', ['project' => $viewData->project, 'tasks' => $viewData->tasks]);
+        return Inertia::render('Task/Board', [
+            'project' => $data['project'],
+            'states' => $data['states'],
+            'types' => $data['types'],
+            'priorities' => $data['priorities'],
+        ]);
     }
 
     /**
@@ -65,7 +72,6 @@ class TaskController extends Controller
         } catch (InvalidDateException $e) {
             Log::info($e->getMessage());
 
-            // dd($e->getMessage());
             return to_route('tasks.create', ['projectId' => $request->getParams()->project_id])
                 ->with('error_message', $e->getMessage());
         }
