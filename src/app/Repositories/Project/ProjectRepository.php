@@ -20,16 +20,19 @@ class ProjectRepository implements ProjectRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function storeProject(array $param): void
+    public function storeProject(array $param, string $userId): Project
     {
-        Project::create($param);
+        $project = Project::create($param);
+        $project->users()->syncWithoutDetaching([$userId]);
+
+        return $project;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function findProject(string $projectId, $columns = ['*']): Project
+    public function findProject(string $projectId, $columns = ['*'], array $with = []): Project
     {
-        return Project::select($columns)->findOrFail($projectId);
+        return Project::with($with)->select($columns)->findOrFail($projectId);
     }
 }

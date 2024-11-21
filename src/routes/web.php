@@ -36,12 +36,20 @@ Route::middleware('auth')->group(function () {
     Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
     Route::get('/projects/{projectId}', [ProjectController::class, 'show'])->name('projects.show');
 
-    // Task
     Route::group(['prefix' => '/projects/{projectId}'], function () {
+        // Project設定
+        Route::get('/setting', [ProjectController::class, 'setting'])->name('projects.setting');
+
+        // Task
         Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
         Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
         Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+
+        //Board
         Route::get('/tasks/board', [TaskController::class, 'board'])->name('tasks.board');
+
+        //Gantt
+        Route::get('/tasks/gantt', [TaskController::class, 'gantt'])->name('tasks.gantt');
     });
 });
 

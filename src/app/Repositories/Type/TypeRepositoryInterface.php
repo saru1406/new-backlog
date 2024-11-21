@@ -16,4 +16,12 @@ interface TypeRepositoryInterface
      * @return Collection<\App\Models\Type>
      */
     public function fetchTypeByProjectId(string $projectId, array $columns = ['*']): Collection;
+
+    /**
+     * プロジェクトごとの種別を一括保存
+     *
+     * @param array $data
+     * @return void
+     */
+    public function bulkInsertTypes(array $data): void;
 }

@@ -7,9 +7,14 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Usecase\Project\IndexProjectUsecaseInterface;
+use App\Usecase\Project\SettingProjectUsecaseInterface;
 use App\Usecase\Project\ShowProjectUsecaseInterface;
 use App\Usecase\Project\StoreProjectUsecaseInterface;
+use App\ViewModels\Project\SettingProjectViewModel;
 use App\ViewModels\ProjectIndexViewModel;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
@@ -18,6 +23,7 @@ class ProjectController extends Controller
         private readonly IndexProjectUsecaseInterface $indexProjectUsecase,
         private readonly StoreProjectUsecaseInterface $storeProjectUsecase,
         private readonly ShowProjectUsecaseInterface $showProjectUsecase,
+        private readonly SettingProjectUsecaseInterface $settingProjectUsecase,
     ) {
     }
 
@@ -47,8 +53,15 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $this->storeProjectUsecase->execute($request->getProject_name());
-        $projects = $this->indexProjectUsecase->execute();
+        try {
+            DB::transaction(function () use ($request, &$projects) {
+                $projects = $this->storeProjectUsecase->execute($request->getProject_name());
+            });
+        } catch (Exception $e) {
+            Log::error('プロジェクト作成中にエラーが発生しました: '.$e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+            ]);
+        }
 
         return to_route('projects.index', [
             'projects' => (new ProjectIndexViewModel($projects))->render(),
@@ -63,6 +76,20 @@ class ProjectController extends Controller
         $project = $this->showProjectUsecase->execute($projectId);
 
         return Inertia::render('Project/Show', ['project' => $project]);
+    }
+
+    public function setting(string $projectId)
+    {
+        $data = $this->settingProjectUsecase->execute($projectId);
+        $formatData = new SettingProjectViewModel($data);
+
+        return Inertia::render('Project/Setting', [
+            'project' => $formatData->project,
+            'users' => $formatData->users,
+            'states' => $formatData->states,
+            'types' => $formatData->types,
+            'priorities' => $formatData->priorities,
+        ]);
     }
 
     /**

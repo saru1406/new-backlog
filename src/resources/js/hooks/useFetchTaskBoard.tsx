@@ -7,7 +7,7 @@ export const useFetchTasks = async (
     stateId: number,
     typeId: number | null = null,
     priorityId: number | null = null,
-    managerId: number | null = null,
+    managerId: number | null = null
 ): Promise<Pagination<Task> | null> => {
     const base = `/api/v1/projects/${projectId}/tasks/fetch-board`;
     const params = new URLSearchParams({
@@ -15,7 +15,8 @@ export const useFetchTasks = async (
     });
 
     if (typeId !== null) params.append('type_id', typeId.toString());
-    if (priorityId !== null) params.append('priority_id', priorityId.toString());
+    if (priorityId !== null)
+        params.append('priority_id', priorityId.toString());
     if (managerId !== null) params.append('manager_id', managerId.toString());
     const url = `${base}?${params.toString()}`;
 

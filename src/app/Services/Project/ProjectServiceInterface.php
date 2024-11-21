@@ -14,6 +14,9 @@ interface ProjectServiceInterface
      *
      * @param User $user
      * @param string $projectId
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
+     *
      * @return Project
      */
     public function fetchProject(User $user, string $projectId): Project;

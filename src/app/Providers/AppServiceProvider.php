@@ -26,6 +26,8 @@ use App\Usecase\Company\StoreCompanyUsecase;
 use App\Usecase\Company\StoreCompanyUsecaseInterface;
 use App\Usecase\Project\IndexProjectUsecase;
 use App\Usecase\Project\IndexProjectUsecaseInterface;
+use App\Usecase\Project\SettingProjectUsecase;
+use App\Usecase\Project\SettingProjectUsecaseInterface;
 use App\Usecase\Project\ShowProjectUsecase;
 use App\Usecase\Project\ShowProjectUsecaseInterface;
 use App\Usecase\Project\StoreProjectUsecase;
@@ -34,6 +36,8 @@ use App\Usecase\Task\BoardTaskUsecase;
 use App\Usecase\Task\BoardTaskUsecaseInterface;
 use App\Usecase\Task\FetchTaskBoardUsecase;
 use App\Usecase\Task\FetchTaskBoardUsecaseInterface;
+use App\Usecase\Task\GanttTaskUsecase;
+use App\Usecase\Task\GanttTaskUsecaseInterface;
 use App\Usecase\Task\IndexTaskUsecase;
 use App\Usecase\Task\IndexTaskUsecaseInterface;
 use App\Usecase\Task\StoreTaskUsecase;
@@ -61,6 +65,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(StoreProjectUsecaseInterface::class, StoreProjectUsecase::class);
         $this->app->bind(ShowProjectUsecaseInterface::class, ShowProjectUsecase::class);
         $this->app->bind(ProjectServiceInterface::class, ProjectService::class);
+        $this->app->bind(SettingProjectUsecaseInterface::class, SettingProjectUsecase::class);
 
         // Task
         $this->app->bind(StoreTaskUsecaseInterface::class, StoreTaskUsecase::class);
@@ -68,7 +73,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TaskServiceInterface::class, TaskService::class);
         $this->app->bind(BoardTaskUsecaseInterface::class, BoardTaskUsecase::class);
         $this->app->bind(IndexTaskUsecaseInterface::class, IndexTaskUsecase::class);
+
+        // Board
         $this->app->bind(FetchTaskBoardUsecaseInterface::class, FetchTaskBoardUsecase::class);
+
+        // Gantt
+        $this->app->bind(GanttTaskUsecaseInterface::class, GanttTaskUsecase::class);
 
         // State
         $this->app->bind(StateRepositoryInterface::class, StateRepository::class);

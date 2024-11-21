@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use App\Usecase\Project\ShowProjectUsecaseInterface;
 use App\Usecase\Task\BoardTaskUsecaseInterface;
+use App\Usecase\Task\GanttTaskUsecaseInterface;
 use App\Usecase\Task\IndexTaskUsecaseInterface;
 use App\Usecase\Task\StoreTaskUsecaseInterface;
 use Inertia\Inertia;
@@ -21,6 +22,7 @@ class TaskController extends Controller
         private readonly StoreTaskUsecaseInterface $storeTaskUsecase,
         private readonly BoardTaskUsecaseInterface $boardTaskUsecase,
         private readonly IndexTaskUsecaseInterface $indexTaskUsecase,
+        private readonly GanttTaskUsecaseInterface $ganttTaskUsecase,
     ) {
     }
 
@@ -75,6 +77,18 @@ class TaskController extends Controller
             return to_route('tasks.create', ['projectId' => $request->getParams()->project_id])
                 ->with('error_message', $e->getMessage());
         }
+    }
+
+    public function gantt(string $projectId)
+    {
+        $data = $this->ganttTaskUsecase->execute($projectId);
+
+        return Inertia::render('Task/Gantt', [
+            'project' => $data['project'],
+            'states' => $data['states'],
+            'types' => $data['types'],
+            'priorities' => $data['priorities'],
+        ]);
     }
 
     /**

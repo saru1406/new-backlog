@@ -16,4 +16,12 @@ class PriorityRepository implements PriorityRepositoryInterface
     {
         return Priority::where('project_id', $projectId)->select($columns)->get();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function bulkInsertPriorities(array $data): void
+    {
+        Priority::insert($data);
+    }
 }

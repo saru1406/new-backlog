@@ -8,11 +8,12 @@ use App\Repositories\Priority\PriorityRepositoryInterface;
 use App\Repositories\State\StateRepositoryInterface;
 use App\Repositories\Task\TaskRepositoryInterface;
 use App\Repositories\Type\TypeRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Project\ProjectServiceInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-class IndexTaskUsecase implements IndexTaskUsecaseInterface
+class GanttTaskUsecase implements GanttTaskUsecaseInterface
 {
     public function __construct(
         private readonly TaskRepositoryInterface $taskRepository,
@@ -20,6 +21,7 @@ class IndexTaskUsecase implements IndexTaskUsecaseInterface
         private readonly StateRepositoryInterface $stateRepository,
         private readonly TypeRepositoryInterface $typeRepository,
         private readonly PriorityRepositoryInterface $priorityRepository,
+        private readonly UserRepositoryInterface $userRepository,
     ) {
     }
 
@@ -29,17 +31,14 @@ class IndexTaskUsecase implements IndexTaskUsecaseInterface
     public function execute(string $projectId): Collection
     {
         $user = Auth::user();
+
         $project = $this->projectService->fetchProject($user, $projectId);
         $states = $this->stateRepository->fetchStateByProjectId($projectId);
         $types = $this->typeRepository->fetchTypeByProjectId($projectId);
         $priorities = $this->priorityRepository->fetchPriorityByProjectId($projectId);
-        $tasks = $this->taskRepository->fetchTaskByProjectIdWithPagination(
-            projectId: $projectId,
-            with: ['state', 'type', 'priority', 'manager'],
-            columns: ['id', 'title', 'state_id', 'type_id', 'priority_id', 'manager_id', 'version_id', 'start_date', 'end_date'],
-            page: 50
-        );
+        // $managers = $this->userRepository->fetchUserByProjectId($projectId, ['id', 'name']);
 
-        return Collect(['project' => $project, 'tasks' => $tasks, 'states' => $states, 'types' => $types, 'priorities' => $priorities]);
+        // return Collect(['project' => $project, 'states' => $states, 'types' => $types, 'priorities' => $priorities, 'managers' => $managers]);
+        return Collect(['project' => $project, 'states' => $states, 'types' => $types, 'priorities' => $priorities]);
     }
 }

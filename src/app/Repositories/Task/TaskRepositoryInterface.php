@@ -35,12 +35,12 @@ interface TaskRepositoryInterface
      * プロジェクトIDからタスクをページネーションで取得
      *
      * @param string $projectId
-     * @param array $params
+     * @param array $with
      * @param array $columns
      * @param ?int $page
      * @return LengthAwarePaginator
      */
-    public function fetchTaskByProjectIdWithPagination(string $projectId, array $params = [], array $columns = ['*'], ?int $page = null): LengthAwarePaginator;
+    public function fetchTaskByProjectIdWithPagination(string $projectId, array $with = [], array $columns = ['*'], ?int $page = null): LengthAwarePaginator;
 
     /**
      * プロジェクトIDからタスクIDの最大値を取得

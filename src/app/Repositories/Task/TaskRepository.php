@@ -7,7 +7,6 @@ namespace App\Repositories\Task;
 use App\Models\Task;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 
 class TaskRepository implements TaskRepositoryInterface
 {
@@ -22,11 +21,11 @@ class TaskRepository implements TaskRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function fetchTaskByProjectIdWithPagination(string $projectId, array $params = [], array $columns = ['*'], ?int $page = null): LengthAwarePaginator
+    public function fetchTaskByProjectIdWithPagination(string $projectId, array $with = [], array $columns = ['*'], ?int $page = null): LengthAwarePaginator
     {
         return Task::where('project_id', $projectId)
             ->select($columns)
-            ->with($params)
+            ->with($with)
             ->orderBy('id', 'desc')
             ->paginate($page);
     }
@@ -78,7 +77,6 @@ class TaskRepository implements TaskRepositoryInterface
         if ($params->manager_id) {
             $query->where('manager_id', $params->manager_id);
         }
-        Log::info($params->toArray());
 
         return $query
             ->select($columns)

@@ -22,16 +22,18 @@ interface ProjectRepositoryInterface
      * プロジェクトを保存
      *
      * @param array $param
-     * @return void
+     * @param string $userId
+     * @return Project
      */
-    public function storeProject(array $param): void;
+    public function storeProject(array $param, string $userId): Project;
 
     /**
      * プロジェクトをIDから取得
      *
      * @param string $projectId
      * @param array $columns
+     * @param array $with
      * @return Project
      */
-    public function findProject(string $projectId, $columns = ['*']): Project;
+    public function findProject(string $projectId, $columns = ['*'], array $with = []): Project;
 }

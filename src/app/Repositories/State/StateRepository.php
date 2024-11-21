@@ -16,4 +16,12 @@ class StateRepository implements StateRepositoryInterface
     {
         return State::where('project_id', $projectId)->select($columns)->get();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function bulkInsertStates(array $data): void
+    {
+        State::insert($data);
+    }
 }
