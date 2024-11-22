@@ -24,4 +24,28 @@ interface PriorityRepositoryInterface
      * @return void
      */
     public function bulkInsertPriorities(array $data): void;
+
+    /**
+     * プロジェクトごとの優先度を保存
+     *
+     * @param array $params
+     * @return void
+     */
+    public function storePriority(array $params): void;
+
+    /**
+     * 優先度ID存在確認
+     *
+     * @param int $priorityId
+     * @return bool
+     */
+    public function existsPriority(int $priorityId): bool;
+
+    /**
+     * 優先度削除
+     *
+     * @param int $priorityId
+     * @return void
+     */
+    public function deletePriority(int $priorityId): void;
 }

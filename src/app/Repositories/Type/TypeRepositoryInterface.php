@@ -24,4 +24,28 @@ interface TypeRepositoryInterface
      * @return void
      */
     public function bulkInsertTypes(array $data): void;
+
+    /**
+     * プロジェクトごとの種別を保存
+     *
+     * @param array $params
+     * @return void
+     */
+    public function storeType(array $params): void;
+
+    /**
+     * 種別ID存在確認
+     *
+     * @param int $typeId
+     * @return bool
+     */
+    public function existsType(int $typeId): bool;
+
+    /**
+     * 種別削除
+     *
+     * @param int $typeId
+     * @return void
+     */
+    public function deleteType(int $typeId): void;
 }

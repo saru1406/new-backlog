@@ -112,16 +112,16 @@ export default function TaskIndex({
                                     </td>
                                     <td className='py-3 px-2'>{task.title}</td>
                                     <td className='py-3 px-2'>
-                                        {task.type.type_name}
+                                        {task.type?.type_name}
                                     </td>
                                     <td className='py-3 px-2'>
-                                        {task.state.state_name}
+                                        {task.state?.state_name}
                                     </td>
                                     <td className='py-3 px-2'>
-                                        {task.priority.priority_name}
+                                        {task.priority?.priority_name}
                                     </td>
                                     <td className='py-3 px-2'>
-                                        {task.manager.name}
+                                        {task.manager?.name}
                                     </td>
                                     <td className='py-3 px-2'>
                                         {task.version_id}

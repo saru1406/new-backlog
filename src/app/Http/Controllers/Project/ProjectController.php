@@ -86,6 +86,7 @@ class ProjectController extends Controller
         return Inertia::render('Project/Setting', [
             'project' => $formatData->project,
             'users' => $formatData->users,
+            'company_users' => $formatData->companyUsers,
             'states' => $formatData->states,
             'types' => $formatData->types,
             'priorities' => $formatData->priorities,

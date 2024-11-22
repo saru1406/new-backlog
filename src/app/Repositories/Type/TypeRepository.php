@@ -24,4 +24,28 @@ class TypeRepository implements TypeRepositoryInterface
     {
         Type::insert($data);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function storeType(array $params): void
+    {
+        Type::create($params);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function existsType(int $typeId): bool
+    {
+        return Type::where('id', $typeId)->exists();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function deleteType(int $typeId): void
+    {
+        Type::destroy($typeId);
+    }
 }

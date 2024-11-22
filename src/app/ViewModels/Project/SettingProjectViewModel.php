@@ -42,6 +42,13 @@ class SettingProjectViewModel
     public readonly Collection $priorities;
 
     /**
+     * 企業のユーザ
+     *
+     * @var Collection
+     */
+    public readonly Collection $companyUsers;
+
+    /**
      * ユーザ
      *
      * @var Collection
@@ -55,6 +62,7 @@ class SettingProjectViewModel
         $this->types = $this->formatType($data['types']);
         $this->priorities = $this->formatPriority($data['priorities']);
         $this->users = $this->formatUser($data['project']->users);
+        $this->companyUsers = $this->formatUser($data['company_user']);
     }
 
     /**

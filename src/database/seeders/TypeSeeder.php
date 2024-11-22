@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Type\TypeEnum;
 use App\Models\Project;
 use App\Models\Type;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,13 +15,13 @@ class TypeSeeder extends Seeder
      */
     public function run(): void
     {
-        $type_names = ['タスク', '課題', 'TODO'];
+        $typeNames = TypeEnum::toArray();
         $projects = Project::all();
-        $projects->each(function ($project) use ($type_names) {
-            foreach ($type_names as $type_name) {
+        $projects->each(function ($project) use ($typeNames) {
+            foreach ($typeNames as $typeName) {
                 Type::create([
                     'project_id' => $project->id,
-                    'type_name' => $type_name,
+                    'type_name' => $typeName,
                 ]);
             }
         });

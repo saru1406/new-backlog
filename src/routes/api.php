@@ -14,7 +14,3 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('/tasks/fetch-board', FetchTaskBoardController::class)->name('tasks.fetch-board');
     });
 });
-
-Route::middleware('auth:sanctum')->get('/data-endpoint', function () {
-    return response()->json(['data' => 'Protected data']);
-});

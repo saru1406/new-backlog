@@ -24,6 +24,10 @@ use App\Services\Task\TaskService;
 use App\Services\Task\TaskServiceInterface;
 use App\Usecase\Company\StoreCompanyUsecase;
 use App\Usecase\Company\StoreCompanyUsecaseInterface;
+use App\Usecase\Priority\DeletePriorityUsecase;
+use App\Usecase\Priority\DeletePriorityUsecaseInterface;
+use App\Usecase\Priority\StorePriorityUsecase;
+use App\Usecase\Priority\StorePriorityUsecaseInterface;
 use App\Usecase\Project\IndexProjectUsecase;
 use App\Usecase\Project\IndexProjectUsecaseInterface;
 use App\Usecase\Project\SettingProjectUsecase;
@@ -42,6 +46,12 @@ use App\Usecase\Task\IndexTaskUsecase;
 use App\Usecase\Task\IndexTaskUsecaseInterface;
 use App\Usecase\Task\StoreTaskUsecase;
 use App\Usecase\Task\StoreTaskUsecaseInterface;
+use App\Usecase\Type\DeleteTypeUsecase;
+use App\Usecase\Type\DeleteTypeUsecaseInterface;
+use App\Usecase\Type\StoreTypeUsecase;
+use App\Usecase\Type\StoreTypeUsecaseInterface;
+use App\Usecase\User\StoreUserUsecase;
+use App\Usecase\User\StoreUserUsecaseInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -58,6 +68,7 @@ class AppServiceProvider extends ServiceProvider
 
         // User
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(StoreUserUsecaseInterface::class, StoreUserUsecase::class);
 
         // Project
         $this->app->bind(IndexProjectUsecaseInterface::class, IndexProjectUsecase::class);
@@ -85,9 +96,13 @@ class AppServiceProvider extends ServiceProvider
 
         // Priority
         $this->app->bind(PriorityRepositoryInterface::class, PriorityRepository::class);
+        $this->app->bind(StorePriorityUsecaseInterface::class, StorePriorityUsecase::class);
+        $this->app->bind(DeletePriorityUsecaseInterface::class, DeletePriorityUsecase::class);
 
         // Type
         $this->app->bind(TypeRepositoryInterface::class, TypeRepository::class);
+        $this->app->bind(StoreTypeUsecaseInterface::class, StoreTypeUsecase::class);
+        $this->app->bind(DeleteTypeUsecaseInterface::class, DeleteTypeUsecase::class);
     }
 
     /**

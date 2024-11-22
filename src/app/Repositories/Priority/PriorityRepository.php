@@ -24,4 +24,28 @@ class PriorityRepository implements PriorityRepositoryInterface
     {
         Priority::insert($data);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function storePriority(array $params): void
+    {
+        Priority::create($params);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function existsPriority(int $priorityId): bool
+    {
+        return Priority::where('id', $priorityId)->exists();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function deletePriority(int $priorityId): void
+    {
+        Priority::destroy($priorityId);
+    }
 }

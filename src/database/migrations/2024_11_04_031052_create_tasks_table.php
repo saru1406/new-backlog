@@ -16,11 +16,11 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained();
             $table->foreignUuid('company_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('project_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('type_id');
-            $table->foreignId('state_id');
-            $table->foreignUuid('manager_id')->nullable(true)->constrained('users');
-            $table->foreignId('priority_id');
-            $table->foreignId('version_id')->nullable(true);
+            $table->foreignId('type_id')->nullable(true)->constrained()->nullOnDelete();
+            $table->foreignId('state_id')->nullable(true)->constrained()->nullOnDelete();
+            $table->foreignUuid('manager_id')->nullable(true)->constrained('users')->nullOnDelete();
+            $table->foreignId('priority_id')->nullable(true)->constrained()->nullOnDelete();
+            $table->foreignId('version_id')->nullable(true)->constrained()->nullOnDelete();
             $table->string('title');
             $table->longText('body')->nullable(true);
             $table->date('start_date')->nullable(true);
