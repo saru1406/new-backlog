@@ -52,8 +52,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/priorities', [PriorityController::class, 'store'])->name('priorities.store');
         Route::delete('/priorities/{priorityId}', [PriorityController::class, 'destroy'])->name('priorities.destroy');
 
-        // User
+        // ProjectUser
         Route::post('/users', [ProjectUserController::class, 'store'])->name('project_users.store');
+        Route::delete('/users/{userId}', [ProjectUserController::class, 'destroy'])->name('project_users.destroy');
 
         // Task
         Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
