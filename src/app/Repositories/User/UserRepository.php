@@ -25,4 +25,20 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::where('project_id', $projectId)->select($columns)->get();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function fetchUserByCompanyId(string $companyId, array $columns = ['*']): Collection
+    {
+        return User::where('company_id', $companyId)->select($columns)->get();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function firstUserByEmail(string $email): User
+    {
+        return User::where('email', $email)->firstOrFail();
+    }
 }

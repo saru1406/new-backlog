@@ -11,6 +11,11 @@ class Type extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'project_id',
+        'type_name',
+    ];
+
     /**
      * プロジェクトと紐づけ
      *

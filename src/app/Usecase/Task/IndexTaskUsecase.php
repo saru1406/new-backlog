@@ -35,7 +35,7 @@ class IndexTaskUsecase implements IndexTaskUsecaseInterface
         $priorities = $this->priorityRepository->fetchPriorityByProjectId($projectId);
         $tasks = $this->taskRepository->fetchTaskByProjectIdWithPagination(
             projectId: $projectId,
-            params: ['state', 'type', 'priority', 'manager'],
+            with: ['state', 'type', 'priority', 'manager'],
             columns: ['id', 'title', 'state_id', 'type_id', 'priority_id', 'manager_id', 'version_id', 'start_date', 'end_date'],
             page: 50
         );

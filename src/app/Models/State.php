@@ -11,6 +11,11 @@ class State extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'project_id',
+        'state_name',
+    ];
+
     /**
      * プロジェクトと紐づけ
      *

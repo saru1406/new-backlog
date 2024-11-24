@@ -16,4 +16,36 @@ class TypeRepository implements TypeRepositoryInterface
     {
         return Type::where('project_id', $projectId)->select($columns)->get();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function bulkInsertTypes(array $data): void
+    {
+        Type::insert($data);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function storeType(array $params): void
+    {
+        Type::create($params);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function existsType(int $typeId): bool
+    {
+        return Type::where('id', $typeId)->exists();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function deleteType(int $typeId): void
+    {
+        Type::destroy($typeId);
+    }
 }

@@ -18,6 +18,9 @@ export default {
             maxHeight: {
                 '128': '32rem',
             },
+            height: {
+                'lvh-73': '73lvh', // `h-lvh` を 100lvh に対応
+            },
         },
     },
 

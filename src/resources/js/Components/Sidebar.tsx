@@ -38,10 +38,16 @@ export default function Sidebar({ project }: { project: Project }) {
                         ボード
                     </Link>
                     <Link
-                        href='#'
+                        href={route('tasks.gantt', project.id)}
                         className='hover:text-gray-300 hover:bg-blue-900 block p-5'
                     >
                         ガントチャート
+                    </Link>
+                    <Link
+                        href={route('projects.setting', project.id)}
+                        className='hover:text-gray-300 hover:bg-blue-900 block p-5'
+                    >
+                        プロジェクトの設定
                     </Link>
                 </div>
                 <div className='flex-1 flex flex-col justify-end mb-5'>

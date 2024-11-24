@@ -11,6 +11,11 @@ class Priority extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'project_id',
+        'priority_name',
+    ];
+
     /**
      * プロジェクトと紐づけ
      *

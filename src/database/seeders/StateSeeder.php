@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\State\StateEnum;
+use App\Enums\Type\TypeEnum;
 use App\Models\Priority;
 use App\Models\Project;
 use App\Models\State;
@@ -15,13 +17,13 @@ class StateSeeder extends Seeder
      */
     public function run(): void
     {
-        $state_names = ['未対応', '処理中', '処理済み'];
+        $stateNames = StateEnum::toArray();
         $projects = Project::all();
-        $projects->each(function ($project) use ($state_names) {
-            foreach ($state_names as $state_name) {
+        $projects->each(function ($project) use ($stateNames) {
+            foreach ($stateNames as $stateName) {
                 State::create([
                     'project_id' => $project->id,
-                    'state_name' => $state_name,
+                    'state_name' => $stateName,
                 ]);
             }
         });

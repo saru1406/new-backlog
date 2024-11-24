@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Priority\PriorityEnum;
 use App\Models\Priority;
 use App\Models\Project;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,13 +15,13 @@ class PrioritySeeder extends Seeder
      */
     public function run(): void
     {
-        $priority_names = ['高', '中', '低'];
+        $priorityNames = PriorityEnum::toArray();
         $projects = Project::all();
-        $projects->each(function ($project) use ($priority_names) {
-            foreach ($priority_names as $priority_name) {
+        $projects->each(function ($project) use ($priorityNames) {
+            foreach ($priorityNames as $priorityName) {
                 Priority::create([
                     'project_id' => $project->id,
-                    'priority_name' => $priority_name,
+                    'priority_name' => $priorityName,
                 ]);
             }
         });

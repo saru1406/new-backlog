@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             PrioritySeeder::class,
             StateSeeder::class,
             TypeSeeder::class,
-            TaskSeeder::class
+            ProjectUserSeeder::class,
+            TaskSeeder::class,
         ]);
     }
 }

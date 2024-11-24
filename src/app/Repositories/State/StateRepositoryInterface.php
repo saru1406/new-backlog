@@ -16,4 +16,12 @@ interface StateRepositoryInterface
      * @return Collection<\App\Models\State>
      */
     public function fetchStateByProjectId(string $projectId, array $columns = ['*']): Collection;
+
+    /**
+     * プロジェクトごとの状態を一括保存
+     *
+     * @param array $data
+     * @return void
+     */
+    public function bulkInsertStates(array $data): void;
 }

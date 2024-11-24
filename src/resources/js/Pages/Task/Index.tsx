@@ -30,7 +30,7 @@ export default function TaskIndex({
                 </h2>
             }
         >
-            <div className='m-10'>
+            <div className='m-10 text-sm'>
                 <div className='flex'>
                     <label htmlFor='state' className='flex mx-5 items-center'>
                         状態
@@ -40,22 +40,22 @@ export default function TaskIndex({
                         name='state_id'
                         id='state'
                     >
-                        <option value=''>選択</option>
+                        <option value=''>未選択</option>
                         {states.map((state) => (
                             <option key={state.id} value={state.id}>
                                 {state.state_name}
                             </option>
                         ))}
                     </select>
-                    <label htmlFor='manager' className='flex mx-5 items-center'>
-                        担当者
+                    <label htmlFor='type' className='flex mx-5 items-center'>
+                        種別
                     </label>
                     <select
                         className='flex rounded-md border-gray-300 shadow-sm min-w-48 max-w-60 text-sm'
-                        name='manager_id'
-                        id='manager'
+                        name='type_id'
+                        id='type'
                     >
-                        <option value=''>選択</option>
+                        <option value=''>未選択</option>
                         {types.map((type) => (
                             <option key={type.id} value={type.id}>
                                 {type.type_name}
@@ -73,7 +73,7 @@ export default function TaskIndex({
                         name='priority_id'
                         id='priority'
                     >
-                        <option value=''>選択</option>
+                        <option value=''>未選択</option>
                         {priorities.map((priority) => (
                             <option key={priority.id} value={priority.id}>
                                 {priority.priority_name}
@@ -82,7 +82,7 @@ export default function TaskIndex({
                     </select>
                 </div>
                 <div className='my-10'>
-                    <table className='border-collapse border border-gray-300 w-full mx-auto bg-white text-sm rounded-lg'>
+                    <table className='border-collapse border border-gray-300 w-full mx-auto bg-white rounded-lg'>
                         <thead className='text-left shadow-sm text-teal-500'>
                             <tr>
                                 <th className='py-3 px-2'>番号</th>
@@ -112,16 +112,16 @@ export default function TaskIndex({
                                     </td>
                                     <td className='py-3 px-2'>{task.title}</td>
                                     <td className='py-3 px-2'>
-                                        {task.type.type_name}
+                                        {task.type?.type_name}
                                     </td>
                                     <td className='py-3 px-2'>
-                                        {task.state.state_name}
+                                        {task.state?.state_name}
                                     </td>
                                     <td className='py-3 px-2'>
-                                        {task.priority.priority_name}
+                                        {task.priority?.priority_name}
                                     </td>
                                     <td className='py-3 px-2'>
-                                        {task.manager.name}
+                                        {task.manager?.name}
                                     </td>
                                     <td className='py-3 px-2'>
                                         {task.version_id}

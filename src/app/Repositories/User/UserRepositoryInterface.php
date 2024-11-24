@@ -27,4 +27,21 @@ interface UserRepositoryInterface
      * @return Collection<User>
      */
     public function fetchUserByProjectId(string $projectId, array $columns = ['*']): Collection;
+
+    /**
+     * 企業IDによるユーザを取得
+     *
+     * @param string $companyId
+     * @param array $columns
+     * @return Collection<User>
+     */
+    public function fetchUserByCompanyId(string $companyId, array $columns = ['*']): Collection;
+
+    /**
+     * メールアドレスからユーザを取得
+     *
+     * @param string $email
+     * @return User
+     */
+    public function firstUserByEmail(string $email): User;
 }

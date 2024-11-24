@@ -8,17 +8,31 @@ import { State } from '@/types/state';
 import { Type } from '@/types/type';
 import { Priority } from '@/types/priority';
 import { Pagination } from '@/types/pagination';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import BoardCard from '@/Components/BoardCard'
+import BoardCard from '@/Components/BoardCard';
 
-export default function TaskBoard({ project, states, types, priorities }: { project: Project, states: State[], types: Type[], priorities: Priority[] }) {
+export default function TaskBoard({
+    project,
+    states,
+    types,
+    priorities,
+}: {
+    project: Project;
+    states: State[];
+    types: Type[];
+    priorities: Priority[];
+}) {
     const [selectType, setSelectType] = useState<number | null>(null);
     const [selectPriority, setSelectPriority] = useState<number | null>(null);
     const [selectManager, setSelectManager] = useState<number | null>(null);
-    const [notStartedTasks, setNotStartedTasks] = useState<Pagination<Task> | null>(null);
-    const [ongoingTasks, setOngoingTasks] = useState<Pagination<Task> | null>(null);
-    const [compatibleTasks, setCompatibleTasks] = useState<Pagination<Task> | null>(null);
-    const [completionTasks, setCompletionTasks] = useState<Pagination<Task> | null>(null);
+    const [notStartedTasks, setNotStartedTasks] =
+        useState<Pagination<Task> | null>(null);
+    const [ongoingTasks, setOngoingTasks] = useState<Pagination<Task> | null>(
+        null
+    );
+    const [compatibleTasks, setCompatibleTasks] =
+        useState<Pagination<Task> | null>(null);
+    const [completionTasks, setCompletionTasks] =
+        useState<Pagination<Task> | null>(null);
     const [selectState, setSelectState] = useState<number | null>(null);
     const [disabledStates, setDisabledStates] = useState({
         notStarted: false,
@@ -27,26 +41,54 @@ export default function TaskBoard({ project, states, types, priorities }: { proj
         completion: false,
     });
 
-    const notStartedState = states.find(state => state.state_name === '未対応');
-    const ongoingState = states.find(state => state.state_name === '処理中');
-    const compatibleState = states.find(state => state.state_name === '処理済み');
-    const completionState = states.find(state => state.state_name === '完了');
+    const notStartedState = states.find(
+        (state) => state.state_name === '未対応'
+    );
+    const ongoingState = states.find((state) => state.state_name === '処理中');
+    const compatibleState = states.find(
+        (state) => state.state_name === '処理済み'
+    );
+    const completionState = states.find((state) => state.state_name === '完了');
 
     const updateTasks = async () => {
         if (notStartedState) {
-            const notStarted = await useFetchTasks(project.id, notStartedState.id, selectType, selectPriority, selectManager);
+            const notStarted = await useFetchTasks(
+                project.id,
+                notStartedState.id,
+                selectType,
+                selectPriority,
+                selectManager
+            );
             setNotStartedTasks(notStarted);
         }
         if (ongoingState) {
-            const ongoing = await useFetchTasks(project.id, ongoingState.id, selectType, selectPriority, selectManager);
+            const ongoing = await useFetchTasks(
+                project.id,
+                ongoingState.id,
+                selectType,
+                selectPriority,
+                selectManager
+            );
             setOngoingTasks(ongoing);
         }
         if (compatibleState) {
-            const compatible = await useFetchTasks(project.id, compatibleState.id, selectType, selectPriority, selectManager);
+            const compatible = await useFetchTasks(
+                project.id,
+                compatibleState.id,
+                selectType,
+                selectPriority,
+                selectManager
+            );
             setCompatibleTasks(compatible);
         }
         if (completionState) {
-            const completion = await useFetchTasks(project.id, completionState.id, selectType, selectPriority, selectManager);
+            const completion = await useFetchTasks(
+                project.id,
+                completionState.id,
+                selectType,
+                selectPriority,
+                selectManager
+            );
             setCompletionTasks(completion);
         }
     };
@@ -74,7 +116,6 @@ export default function TaskBoard({ project, states, types, priorities }: { proj
         updateDisabledStates();
     }, [project.id, selectState, selectType, selectPriority, selectManager]);
 
-
     return (
         <ProjectLayout
             project={project}
@@ -84,7 +125,7 @@ export default function TaskBoard({ project, states, types, priorities }: { proj
                 </h2>
             }
         >
-            <div className='mt-8 mb-2 mx-5'>
+            <div className='mt-8 mb-2 mx-5 text-sm'>
                 <div className='flex'>
                     <label htmlFor='state' className='flex mx-5 items-center'>
                         状態
@@ -94,27 +135,34 @@ export default function TaskBoard({ project, states, types, priorities }: { proj
                         name='state_id'
                         id='state'
                         onChange={(e) => {
-                            const selectedValue = e.target.value === "" ? null : Number(e.target.value);
+                            const selectedValue =
+                                e.target.value === ''
+                                    ? null
+                                    : Number(e.target.value);
                             setSelectState(selectedValue);
                         }}
                     >
-                        <option value="">選択</option>
+                        <option value=''>未選択</option>
                         {states.map((state) => (
                             <option key={state.id} value={state.id}>
                                 {state.state_name}
                             </option>
                         ))}
                     </select>
-                    <label htmlFor='manager' className='flex mx-5 items-center'>
-                        担当者
+                    <label htmlFor='type' className='flex mx-5 items-center'>
+                        種別
                     </label>
                     <select
                         className='flex rounded-md border-gray-300 shadow-sm min-w-48 max-w-60 text-sm'
-                        name='manager_id'
-                        id='manager'
-                        onChange={(e) => setSelectType(Number((e.target as HTMLSelectElement).value))}
+                        name='type_id'
+                        id='type'
+                        onChange={(e) =>
+                            setSelectType(
+                                Number((e.target as HTMLSelectElement).value)
+                            )
+                        }
                     >
-                        <option value=''>選択</option>
+                        <option value=''>未選択</option>
                         {types.map((type) => (
                             <option key={type.id} value={type.id}>
                                 {type.type_name}
@@ -131,9 +179,13 @@ export default function TaskBoard({ project, states, types, priorities }: { proj
                         className='flex rounded-md border-gray-300 shadow-sm min-w-48 max-w-60 text-sm'
                         name='priority_id'
                         id='priority'
-                        onChange={(e) => setSelectPriority(Number((e.target as HTMLSelectElement).value))}
+                        onChange={(e) =>
+                            setSelectPriority(
+                                Number((e.target as HTMLSelectElement).value)
+                            )
+                        }
                     >
-                        <option value=''>選択</option>
+                        <option value=''>未選択</option>
                         {priorities.map((priority) => (
                             <option key={priority.id} value={priority.id}>
                                 {priority.priority_name}
@@ -156,31 +208,43 @@ export default function TaskBoard({ project, states, types, priorities }: { proj
                 </div>
                 <div className='mt-8 mb-2'>
                     <div className='flex overflow-x-auto'>
-                        <div className='bg-white h-lvh w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto max-h-128'>
+                        <div className='bg-white h-lvh-73 w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto'>
                             <p>未対応</p>
                             <BoardCard
-                                tasks={notStartedTasks ? notStartedTasks.data : null}
+                                tasks={
+                                    notStartedTasks
+                                        ? notStartedTasks.data
+                                        : null
+                                }
                                 disable={disabledStates.notStarted}
                             ></BoardCard>
                         </div>
-                        <div className='bg-white h-lvh w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto max-h-128'>
+                        <div className='bg-white h-lvh-73 w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto'>
                             <p>対応中</p>
                             <BoardCard
                                 tasks={ongoingTasks ? ongoingTasks.data : null}
                                 disable={disabledStates.ongoing}
                             ></BoardCard>
                         </div>
-                        <div className='bg-white h-lvh w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto max-h-128'>
+                        <div className='bg-white h-lvh-73 w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto'>
                             <p>対応済み</p>
                             <BoardCard
-                                tasks={compatibleTasks ? compatibleTasks.data : null}
+                                tasks={
+                                    compatibleTasks
+                                        ? compatibleTasks.data
+                                        : null
+                                }
                                 disable={disabledStates.compatible}
                             ></BoardCard>
                         </div>
-                        <div className='bg-white h-lvh w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto max-h-128'>
+                        <div className='bg-white h-lvh-73 w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto '>
                             <p>完了</p>
                             <BoardCard
-                                tasks={completionTasks ? completionTasks.data : null}
+                                tasks={
+                                    completionTasks
+                                        ? completionTasks.data
+                                        : null
+                                }
                                 disable={disabledStates.completion}
                             ></BoardCard>
                         </div>
