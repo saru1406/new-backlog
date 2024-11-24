@@ -30,6 +30,7 @@ export default function ProjectSetting({
     message?: string;
     error_message?: string;
 }) {
+    console.log(users)
     const [isModalOpen, setIsModalOpen] = useState({
         type: false,
         priority: false,
@@ -63,6 +64,7 @@ export default function ProjectSetting({
     const handleSubmitType: FormEventHandler = (e) => {
         e.preventDefault();
         typeForm.post(route('types.store', project.id), {
+            preserveScroll: true,
             onSuccess: () => {
                 closeModal('type');
                 typeForm.reset();
@@ -73,6 +75,7 @@ export default function ProjectSetting({
     const handleSubmitPriority: FormEventHandler = (e) => {
         e.preventDefault();
         priorityForm.post(route('priorities.store', project.id), {
+            preserveScroll: true,
             onSuccess: () => {
                 closeModal('priority');
                 priorityForm.reset();
@@ -84,6 +87,8 @@ export default function ProjectSetting({
         e.preventDefault();
         router.post(route('project_users.store', project.id), {
             'user_email': userEmail
+        }, {
+            preserveScroll: true,
         });
         closeModal('user')
     };
@@ -93,7 +98,9 @@ export default function ProjectSetting({
         type: Type
     ) => {
         e.preventDefault();
-        router.delete(route('types.destroy', [project.id, type.id]));
+        router.delete(route('types.destroy', [project.id, type.id]), {
+            preserveScroll: true,
+        });
     };
 
     const handleDeletePriority = (
@@ -101,7 +108,19 @@ export default function ProjectSetting({
         priority: Priority
     ) => {
         e.preventDefault();
-        router.delete(route('priorities.destroy', [project.id, priority.id]));
+        router.delete(route('priorities.destroy', [project.id, priority.id]), {
+            preserveScroll: true,
+        });
+    };
+
+    const handleDeleteUser = (
+        e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+        user: User
+    ) => {
+        e.preventDefault();
+        router.delete(route('project_users.destroy', [project.id, user.id]), {
+            preserveScroll: true,
+        });
     };
 
     return (
@@ -297,7 +316,7 @@ export default function ProjectSetting({
             <hr />
             <div className='m-14'>
                 <div>
-                    <div className='flex justify-between w-1/2'>
+                    <div className='flex justify-between full'>
                         <h2 className='mb-3'>ユーザー一覧</h2>
                         <button
                             className='bg-green-500 rounded-lg px-4 py-2 border border-gray-300 text-white text-sm font-semibold shadow-md hover:bg-green-600 hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105'
@@ -370,7 +389,7 @@ export default function ProjectSetting({
                             </div>
                         </Modal>
                     </div>
-                    <table className='w-1/2'>
+                    <table className='w-full'>
                         <thead className='border-b border-gray-500 text-left text-teal-500'>
                             <tr>
                                 <th className='py-3 px-5 text-center'>
@@ -395,7 +414,13 @@ export default function ProjectSetting({
                                         {user.email}
                                     </td>
                                     <td className='py-3 px-5 text-center text-red-500'>
-                                        <span className='cursor-pointer'>
+                                        <span className='cursor-pointer'
+                                            onClick={(e) =>
+                                                handleDeleteUser(
+                                                    e,
+                                                    user
+                                                )
+                                            }>
                                             ✕
                                         </span>
                                     </td>

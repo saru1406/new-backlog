@@ -38,6 +38,8 @@ use App\Usecase\Project\ShowProjectUsecase;
 use App\Usecase\Project\ShowProjectUsecaseInterface;
 use App\Usecase\Project\StoreProjectUsecase;
 use App\Usecase\Project\StoreProjectUsecaseInterface;
+use App\Usecase\ProjectUser\DeleteProjectUserUsecase;
+use App\Usecase\ProjectUser\DeleteProjectUserUsecaseInterface;
 use App\Usecase\ProjectUser\StoreProjectUserUsecase;
 use App\Usecase\ProjectUser\StoreProjectUserUsecaseInterface;
 use App\Usecase\Task\BoardTaskUsecase;
@@ -73,6 +75,7 @@ class AppServiceProvider extends ServiceProvider
 
         // ProjectUser
         $this->app->bind(StoreProjectUserUsecaseInterface::class, StoreProjectUserUsecase::class);
+        $this->app->bind(DeleteProjectUserUsecaseInterface::class, DeleteProjectUserUsecase::class);
         $this->app->bind(ProjectUserRepositoryInterface::class, ProjectUserRepository::class);
 
         // Project
