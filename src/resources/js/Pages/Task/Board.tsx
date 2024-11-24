@@ -208,7 +208,7 @@ export default function TaskBoard({
                 </div>
                 <div className='mt-8 mb-2'>
                     <div className='flex overflow-x-auto'>
-                        <div className='bg-white h-lvh w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto max-h-128'>
+                        <div className='bg-white h-lvh-73 w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto'>
                             <p>未対応</p>
                             <BoardCard
                                 tasks={
@@ -219,14 +219,14 @@ export default function TaskBoard({
                                 disable={disabledStates.notStarted}
                             ></BoardCard>
                         </div>
-                        <div className='bg-white h-lvh w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto max-h-128'>
+                        <div className='bg-white h-lvh-73 w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto'>
                             <p>対応中</p>
                             <BoardCard
                                 tasks={ongoingTasks ? ongoingTasks.data : null}
                                 disable={disabledStates.ongoing}
                             ></BoardCard>
                         </div>
-                        <div className='bg-white h-lvh w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto max-h-128'>
+                        <div className='bg-white h-lvh-73 w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto'>
                             <p>対応済み</p>
                             <BoardCard
                                 tasks={
@@ -237,7 +237,7 @@ export default function TaskBoard({
                                 disable={disabledStates.compatible}
                             ></BoardCard>
                         </div>
-                        <div className='bg-white h-lvh w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto max-h-128'>
+                        <div className='bg-white h-lvh-73 w-full mr-5 border border-gray-200 rounded-md p-2 overflow-y-auto '>
                             <p>完了</p>
                             <BoardCard
                                 tasks={

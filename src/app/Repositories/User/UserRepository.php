@@ -37,8 +37,8 @@ class UserRepository implements UserRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function storeUser(array $params): void
+    public function firstUserByEmail(string $email): User
     {
-        User::create($params);
+        return User::where('email', $email)->firstOrFail();
     }
 }

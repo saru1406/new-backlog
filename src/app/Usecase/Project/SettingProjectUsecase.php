@@ -36,7 +36,7 @@ class SettingProjectUsecase implements SettingProjectUsecaseInterface
         $states = $this->stateRepository->fetchStateByProjectId($projectId);
         $types = $this->typeRepository->fetchTypeByProjectId($projectId);
         $priorities = $this->priorityRepository->fetchPriorityByProjectId($projectId);
-        $companyUsers = $this->userRepository->fetchUserByCompanyId($user->company_id, ['id', 'name']);
+        $companyUsers = $this->userRepository->fetchUserByCompanyId($user->company_id, ['id', 'name', 'email']);
         $companyUsersDiff = $this->userDiff($project->users, $companyUsers);
 
         return Collect(['project' => $project, 'states' => $states, 'types' => $types, 'priorities' => $priorities, 'company_user' => $companyUsersDiff]);

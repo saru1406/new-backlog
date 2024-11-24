@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\ProjectUser;
 
-use App\Repositories\user\StoreUserParams;
+use App\Repositories\ProjectUser\StoreProjectUserParams;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserRequest extends FormRequest
+class StoreProjectUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,20 +23,20 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type_name' => ['string', 'required'],
+            'user_email' => ['required', 'string', 'email'],
         ];
     }
 
     /**
-     * パラメータをStoreUserParamsに格納
+     * パラメータをStoreProjectUserParamsに格納
      *
-     * @return StoreUserParams
+     * @return StoreProjectUserParams
      */
-    public function getParams(): StoreUserParams
+    public function getParams(): StoreProjectUserParams
     {
-        return new StoreUserParams(
+        return new StoreProjectUserParams(
             projectId: $this->route('projectId'),
-            userId: $this->input('user_id'),
+            userEmail: $this->input('user_email'),
         );
     }
 }

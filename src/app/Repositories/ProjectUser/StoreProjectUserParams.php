@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\user;
+namespace App\Repositories\ProjectUser;
 
-class StoreUserParams
+class StoreProjectUserParams
 {
     /**
      * プロジェクトID
@@ -14,16 +14,16 @@ class StoreUserParams
     public readonly string $projectId;
 
     /**
-     * ユーザーID
+     * ユーザメールアドレス
      *
      * @var string
      */
-    public readonly string $userId;
+    public readonly string $userEmail;
 
-    public function __construct(string $projectId, string $userId)
+    public function __construct(string $projectId, string $userEmail)
     {
         $this->projectId = $projectId;
-        $this->userId = $userId;
+        $this->userEmail = $userEmail;
     }
 
     /**
@@ -35,7 +35,7 @@ class StoreUserParams
     {
         return [
             'project_id' => $this->projectId,
-            'user_id' => $this->userId,
+            'user_email' => $this->userEmail,
         ];
     }
 }

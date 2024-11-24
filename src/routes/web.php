@@ -4,6 +4,7 @@ use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Priority\PriorityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Project\ProjectController;
+use App\Http\Controllers\ProjectUser\ProjectUserController;
 use App\Http\Controllers\Task\TaskController;
 use App\Http\Controllers\Type\TypeController;
 use App\Http\Controllers\User\UserController;
@@ -52,7 +53,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/priorities/{priorityId}', [PriorityController::class, 'destroy'])->name('priorities.destroy');
 
         // User
-        Route::post('/users', [UserController::class, 'store'])->name('users.store');
+        Route::post('/users', [ProjectUserController::class, 'store'])->name('project_users.store');
 
         // Task
         Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');

@@ -36,4 +36,12 @@ interface UserRepositoryInterface
      * @return Collection<User>
      */
     public function fetchUserByCompanyId(string $companyId, array $columns = ['*']): Collection;
+
+    /**
+     * メールアドレスからユーザを取得
+     *
+     * @param string $email
+     * @return User
+     */
+    public function firstUserByEmail(string $email): User;
 }

@@ -8,6 +8,8 @@ use App\Repositories\Priority\PriorityRepository;
 use App\Repositories\Priority\PriorityRepositoryInterface;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Project\ProjectRepositoryInterface;
+use App\Repositories\ProjectUser\ProjectUserRepository;
+use App\Repositories\ProjectUser\ProjectUserRepositoryInterface;
 use App\Repositories\State\StateRepository;
 use App\Repositories\State\StateRepositoryInterface;
 use App\Repositories\Task\TaskRepository;
@@ -36,6 +38,8 @@ use App\Usecase\Project\ShowProjectUsecase;
 use App\Usecase\Project\ShowProjectUsecaseInterface;
 use App\Usecase\Project\StoreProjectUsecase;
 use App\Usecase\Project\StoreProjectUsecaseInterface;
+use App\Usecase\ProjectUser\StoreProjectUserUsecase;
+use App\Usecase\ProjectUser\StoreProjectUserUsecaseInterface;
 use App\Usecase\Task\BoardTaskUsecase;
 use App\Usecase\Task\BoardTaskUsecaseInterface;
 use App\Usecase\Task\FetchTaskBoardUsecase;
@@ -50,8 +54,6 @@ use App\Usecase\Type\DeleteTypeUsecase;
 use App\Usecase\Type\DeleteTypeUsecaseInterface;
 use App\Usecase\Type\StoreTypeUsecase;
 use App\Usecase\Type\StoreTypeUsecaseInterface;
-use App\Usecase\User\StoreUserUsecase;
-use App\Usecase\User\StoreUserUsecaseInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -68,7 +70,10 @@ class AppServiceProvider extends ServiceProvider
 
         // User
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
-        $this->app->bind(StoreUserUsecaseInterface::class, StoreUserUsecase::class);
+
+        // ProjectUser
+        $this->app->bind(StoreProjectUserUsecaseInterface::class, StoreProjectUserUsecase::class);
+        $this->app->bind(ProjectUserRepositoryInterface::class, ProjectUserRepository::class);
 
         // Project
         $this->app->bind(IndexProjectUsecaseInterface::class, IndexProjectUsecase::class);
