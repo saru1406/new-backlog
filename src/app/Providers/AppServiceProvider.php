@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\ChildTask\ChildTaskRepository;
+use App\Repositories\ChildTask\ChildTaskRepositoryInterface;
 use App\Repositories\Company\CompanyRepository;
 use App\Repositories\Company\CompanyRepositoryInterface;
 use App\Repositories\Priority\PriorityRepository;
@@ -18,12 +20,16 @@ use App\Repositories\Type\TypeRepository;
 use App\Repositories\Type\TypeRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Services\ChildTask\ChildTaskService;
+use App\Services\ChildTask\ChildTaskServiceInterface;
 use App\Services\Company\CompanyService;
 use App\Services\Company\CompanyServiceInterface;
 use App\Services\Project\ProjectService;
 use App\Services\Project\ProjectServiceInterface;
 use App\Services\Task\TaskService;
 use App\Services\Task\TaskServiceInterface;
+use App\Usecase\ChildTask\StoreChildTaskUsecase;
+use App\Usecase\ChildTask\StoreChildTaskUsecaseInterface;
 use App\Usecase\Company\StoreCompanyUsecase;
 use App\Usecase\Company\StoreCompanyUsecaseInterface;
 use App\Usecase\Priority\DeletePriorityUsecase;
@@ -52,6 +58,8 @@ use App\Usecase\Task\GanttTaskUsecase;
 use App\Usecase\Task\GanttTaskUsecaseInterface;
 use App\Usecase\Task\IndexTaskUsecase;
 use App\Usecase\Task\IndexTaskUsecaseInterface;
+use App\Usecase\Task\ShowTaskUsecase;
+use App\Usecase\Task\ShowTaskUsecaseInterface;
 use App\Usecase\Task\StoreTaskUsecase;
 use App\Usecase\Task\StoreTaskUsecaseInterface;
 use App\Usecase\Type\DeleteTypeUsecase;
@@ -95,6 +103,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BoardTaskUsecaseInterface::class, BoardTaskUsecase::class);
         $this->app->bind(IndexTaskUsecaseInterface::class, IndexTaskUsecase::class);
         $this->app->bind(CreateTaskUsecaseInterface::class, CreateTaskUsecase::class);
+        $this->app->bind(ShowTaskUsecaseInterface::class, ShowTaskUsecase::class);
 
         // Board
         $this->app->bind(FetchTaskBoardUsecaseInterface::class, FetchTaskBoardUsecase::class);
@@ -114,6 +123,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TypeRepositoryInterface::class, TypeRepository::class);
         $this->app->bind(StoreTypeUsecaseInterface::class, StoreTypeUsecase::class);
         $this->app->bind(DeleteTypeUsecaseInterface::class, DeleteTypeUsecase::class);
+
+        // ChildTask
+        $this->app->bind(StoreChildTaskUsecaseInterface::class, StoreChildTaskUsecase::class);
+        $this->app->bind(ChildTaskRepositoryInterface::class, ChildTaskRepository::class);
+        $this->app->bind(ChildTaskServiceInterface::class, ChildTaskService::class);
     }
 
     /**

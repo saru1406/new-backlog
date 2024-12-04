@@ -135,9 +135,11 @@ export default function TaskBoard({
                         name='state_id'
                         id='state'
                         onChange={(e) => {
-                            setSelectState(e.target.value === ''
-                                ? null
-                                : Number(e.target.value));
+                            setSelectState(
+                                e.target.value === ''
+                                    ? null
+                                    : Number(e.target.value)
+                            );
                         }}
                     >
                         <option value=''>未選択</option>
@@ -156,9 +158,11 @@ export default function TaskBoard({
                         id='type'
                         onChange={(e) =>
                             setSelectType(
-                                Number(e.target.value === ''
-                                    ? null
-                                    : Number(e.target.value))
+                                Number(
+                                    e.target.value === ''
+                                        ? null
+                                        : Number(e.target.value)
+                                )
                             )
                         }
                     >

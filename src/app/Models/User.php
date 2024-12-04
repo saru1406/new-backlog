@@ -82,6 +82,26 @@ class User extends Authenticatable
     }
 
     /**
+     * 子タスク登録者と紐づけ
+     *
+     * @return HasMany
+     */
+    public function childTasksCreated(): HasMany
+    {
+        return $this->hasMany(ChildTask::class, 'user_id');
+    }
+
+    /**
+     * 子タスク担当者と紐づけ
+     *
+     * @return HasMany
+     */
+    public function childTasksManaged(): HasMany
+    {
+        return $this->hasMany(ChildTask::class, 'manager_id');
+    }
+
+    /**
      * プロジェクトと紐づけ
      *
      * @return BelongsToMany

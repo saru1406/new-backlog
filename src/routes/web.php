@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChildTask\ChildTaskController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Priority\PriorityController;
 use App\Http\Controllers\ProfileController;
@@ -55,17 +56,25 @@ Route::middleware('auth')->group(function () {
         Route::post('/users', [ProjectUserController::class, 'store'])->name('project_users.store');
         Route::delete('/users/{userId}', [ProjectUserController::class, 'destroy'])->name('project_users.destroy');
 
-        // Task
-        Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
-        Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
-        Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+        Route::group(['prefix' => '/tasks'], function () {
+            //Board
+            Route::get('/board', [TaskController::class, 'board'])->name('tasks.board');
 
-        //Board
-        Route::get('/tasks/board', [TaskController::class, 'board'])->name('tasks.board');
+            //Gantt
+            Route::get('/gantt', [TaskController::class, 'gantt'])->name('tasks.gantt');
 
-        //Gantt
-        Route::get('/tasks/gantt', [TaskController::class, 'gantt'])->name('tasks.gantt');
+            // Task
+            Route::get('/create', [TaskController::class, 'create'])->name('tasks.create');
+            Route::post('/', [TaskController::class, 'store'])->name('tasks.store');
+            Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
+            Route::get('/{taskId}', [TaskController::class, 'show'])->name('tasks.show');
+
+            Route::group(['prefix' => '{taskId}'], function () {
+                // ChildTask
+                Route::post('/child-tasks', [ChildTaskController::class, 'store'])->name('child_tasks.store');
+            });
+        });
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

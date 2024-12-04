@@ -35,4 +35,14 @@ class Priority extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    /**
+     * 子タスクと紐づけ
+     *
+     * @return HasMany
+     */
+    public function childTasks(): HasMany
+    {
+        return $this->hasMany(ChildTask::class);
+    }
 }

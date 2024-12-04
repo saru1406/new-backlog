@@ -12,6 +12,7 @@ use App\Usecase\Task\BoardTaskUsecaseInterface;
 use App\Usecase\Task\CreateTaskUsecaseInterface;
 use App\Usecase\Task\GanttTaskUsecaseInterface;
 use App\Usecase\Task\IndexTaskUsecaseInterface;
+use App\Usecase\Task\ShowTaskUsecaseInterface;
 use App\Usecase\Task\StoreTaskUsecaseInterface;
 use Inertia\Inertia;
 use Log;
@@ -25,6 +26,7 @@ class TaskController extends Controller
         private readonly IndexTaskUsecaseInterface $indexTaskUsecase,
         private readonly GanttTaskUsecaseInterface $ganttTaskUsecase,
         private readonly CreateTaskUsecaseInterface $createTaskUsecase,
+        private readonly ShowTaskUsecaseInterface $showTaskUsecase,
     ) {
     }
 
@@ -69,6 +71,8 @@ class TaskController extends Controller
             'states' => $data['states'],
             'types' => $data['types'],
             'priorities' => $data['priorities'],
+            'error_message' => session('errors') ? session('errors')->get('message') : null,
+            'message' => session('message') ? session('message') : null,
         ]);
     }
 
@@ -79,11 +83,16 @@ class TaskController extends Controller
     {
         try {
             $this->storeTaskUsecase->execute($request->getParams());
+
+            return back()->with([
+                'message' => '正常に作成されました',
+            ]);
         } catch (InvalidDateException $e) {
             Log::info($e->getMessage());
 
-            return to_route('tasks.create', ['projectId' => $request->getParams()->project_id])
-                ->with('error_message', $e->getMessage());
+            return back()->withErrors([
+                'message' => $e->getMessage(),
+            ])->withInput();
         }
     }
 
@@ -102,9 +111,19 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show(string $projectId, int $taskId)
     {
-        //
+        $data = $this->showTaskUsecase->execute($taskId, $projectId);
+
+        return Inertia::render('Task/Show', [
+            'project' => $data['project'],
+            'users' => $data['project']->users,
+            'task' => $data['task'],
+            'child_tasks' => $data['child_tasks'],
+            'states' => $data['states'],
+            'types' => $data['types'],
+            'priorities' => $data['priorities'],
+        ]);
     }
 
     /**

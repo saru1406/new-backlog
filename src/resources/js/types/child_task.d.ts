@@ -1,5 +1,6 @@
-export type Task = {
+export type ChildTask = {
     id: number;
+    task_id: number;
     title: string;
     body: string;
     priority: {
