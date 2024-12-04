@@ -37,11 +37,11 @@ export default function TaskShow({
     message?: string;
     error_message?: string;
 }) {
-    const [openModal, setOpenModal] = useState<boolean>(false)
+    const [openModal, setOpenModal] = useState<boolean>(false);
     const closeModal = () => {
         setOpenModal(false);
     };
-    console.log(child_tasks)
+    console.log(child_tasks);
     return (
         <ProjectLayout
             project={project}
@@ -143,9 +143,9 @@ export default function TaskShow({
                             <p className='flex items-center text-center'>
                                 {task.start_date
                                     ? format(
-                                        new Date(task.start_date),
-                                        'yyyy/MM/dd'
-                                    )
+                                          new Date(task.start_date),
+                                          'yyyy/MM/dd'
+                                      )
                                     : null}
                             </p>
                         </div>
@@ -159,30 +159,28 @@ export default function TaskShow({
                             <p className='flex items-center text-center'>
                                 {task.end_date
                                     ? format(
-                                        new Date(task.end_date),
-                                        'yyyy/MM/dd'
-                                    )
+                                          new Date(task.end_date),
+                                          'yyyy/MM/dd'
+                                      )
                                     : null}
                             </p>
                         </div>
                     </div>
                     <hr />
                 </div>
-                <div className="relative pt-6 rounded-md">
-                    <div className="absolute -top-3 bg-white px-10 py-2 rounded-t-md border border-b-0 border-gray-300 text-sm">
+                <div className='relative pt-6 rounded-md'>
+                    <div className='absolute -top-3 bg-white px-10 py-2 rounded-t-md border border-b-0 border-gray-300 text-sm'>
                         子タスク
                     </div>
-                    <div className="bg-white border border-gray-300 px-10 pt-10 pb-20 rounded-md rounded-tl-none">
-                        <div className="flex justify-end mb-5">
+                    <div className='bg-white border border-gray-300 px-10 pt-10 pb-20 rounded-md rounded-tl-none'>
+                        <div className='flex justify-end mb-5'>
                             <button
                                 className='bg-green-500 rounded-lg px-4 py-2 border border-gray-300 text-white text-sm font-semibold shadow-md hover:bg-green-600 hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105'
                                 onClick={() => setOpenModal(true)}
                             >
                                 追加
                             </button>
-                            <button
-                                className='ml-5 bg-blue-500 rounded-lg px-4 py-2 border border-gray-300 text-white text-sm font-semibold shadow-md hover:bg-blue-600 hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105'
-                            >
+                            <button className='ml-5 bg-blue-500 rounded-lg px-4 py-2 border border-gray-300 text-white text-sm font-semibold shadow-md hover:bg-blue-600 hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105'>
                                 AIで自動作成
                             </button>
                         </div>
@@ -212,79 +210,85 @@ export default function TaskShow({
                                     <th className='py-1 px-2'>状態</th>
                                     <th className='py-1 px-2'>優先度</th>
                                     <th className='py-1 px-2'>担当者</th>
-                                    <th className='py-1 px-2'>発生バージョン</th>
+                                    <th className='py-1 px-2'>
+                                        発生バージョン
+                                    </th>
                                     <th className='py-1 px-2'>開始日</th>
                                     <th className='py-1 px-2'>期限日</th>
                                 </tr>
                             </thead>
                             {child_tasks.map((child_task) => (
-                            <tbody
-                                key={child_task.id}
-                                className='border border-gray-300 text-sm'
-                            >
-                                <tr>
-                                    <td className='py-2 px-2'>
-                                        <Link
-                                            href={route('tasks.show', [
-                                                project.id,
-                                                child_task.id,
-                                            ])}
-                                            className='text-blue-600'
-                                        >
-                                            {child_task.id}
-                                        </Link>
-                                    </td>
-                                    <td className='py-2 px-2'>{child_task.title}</td>
-                                    <td className='py-2 px-2'>
-                                        {child_task.type?.type_name}
-                                    </td>
-                                    <td className='py-2 px-2 text-white text-nowrap'>
-                                        <span
-                                            className={`rounded-full py-1 px-2 ${
-                                                child_task.state?.state_name ===
-                                                '処理済み'
-                                                    ? 'bg-indigo-500'
-                                                    : child_task.state?.state_name ===
-                                                        '未対応'
-                                                      ? 'bg-orange-400'
-                                                      : child_task.state
-                                                              ?.state_name ===
-                                                          '処理中'
-                                                        ? 'bg-green-500'
+                                <tbody
+                                    key={child_task.id}
+                                    className='border border-gray-300 text-sm'
+                                >
+                                    <tr>
+                                        <td className='py-2 px-2'>
+                                            <Link
+                                                href={route('tasks.show', [
+                                                    project.id,
+                                                    child_task.id,
+                                                ])}
+                                                className='text-blue-600'
+                                            >
+                                                {child_task.id}
+                                            </Link>
+                                        </td>
+                                        <td className='py-2 px-2'>
+                                            {child_task.title}
+                                        </td>
+                                        <td className='py-2 px-2'>
+                                            {child_task.type?.type_name}
+                                        </td>
+                                        <td className='py-2 px-2 text-white text-nowrap'>
+                                            <span
+                                                className={`rounded-full py-1 px-2 ${
+                                                    child_task.state
+                                                        ?.state_name ===
+                                                    '処理済み'
+                                                        ? 'bg-indigo-500'
                                                         : child_task.state
                                                                 ?.state_name ===
-                                                            '完了'
-                                                          ? 'bg-slate-500'
-                                                          : ''
-                                            }`}
-                                        >
-                                            {child_task.state?.state_name}
-                                        </span>
-                                    </td>
-                                    <td className='py-2 px-2'>
-                                        {child_task.priority?.priority_name}
-                                    </td>
-                                    <td className='py-2 px-2 text-nowrap'>
-                                        {child_task.manager?.name}
-                                    </td>
-                                    <td className='py-2 px-2'>
-                                        {child_task.version_id}
-                                    </td>
-                                    <td className='py-2 px-2 text-nowrap'>
-                                        {format(
-                                            new Date(child_task.start_date),
-                                            'yyyy/MM/dd'
-                                        )}
-                                    </td>
-                                    <td className='py-2 px-2 text-nowrap'>
-                                        {format(
-                                            new Date(child_task.end_date),
-                                            'yyyy/MM/dd'
-                                        )}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        ))}
+                                                            '未対応'
+                                                          ? 'bg-orange-400'
+                                                          : child_task.state
+                                                                  ?.state_name ===
+                                                              '処理中'
+                                                            ? 'bg-green-500'
+                                                            : child_task.state
+                                                                    ?.state_name ===
+                                                                '完了'
+                                                              ? 'bg-slate-500'
+                                                              : ''
+                                                }`}
+                                            >
+                                                {child_task.state?.state_name}
+                                            </span>
+                                        </td>
+                                        <td className='py-2 px-2'>
+                                            {child_task.priority?.priority_name}
+                                        </td>
+                                        <td className='py-2 px-2 text-nowrap'>
+                                            {child_task.manager?.name}
+                                        </td>
+                                        <td className='py-2 px-2'>
+                                            {child_task.version_id}
+                                        </td>
+                                        <td className='py-2 px-2 text-nowrap'>
+                                            {format(
+                                                new Date(child_task.start_date),
+                                                'yyyy/MM/dd'
+                                            )}
+                                        </td>
+                                        <td className='py-2 px-2 text-nowrap'>
+                                            {format(
+                                                new Date(child_task.end_date),
+                                                'yyyy/MM/dd'
+                                            )}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            ))}
                         </table>
                     </div>
                 </div>

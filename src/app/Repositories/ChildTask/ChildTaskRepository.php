@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\ChildTask;
 
 use App\Models\ChildTask;
-use App\Models\Task;
 use Illuminate\Support\Collection;
 
 class ChildTaskRepository implements ChildTaskRepositoryInterface

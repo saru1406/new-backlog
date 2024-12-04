@@ -1,14 +1,14 @@
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
-import { User } from "@/types";
-import { Priority } from "@/types/priority";
-import { Project } from "@/types/project";
-import { State } from "@/types/state";
-import { Type } from "@/types/type";
-import { useForm } from "@inertiajs/react";
-import { ja } from "date-fns/locale";
-import { useState } from "react";
-import DatePicker from "react-datepicker";
+import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
+import { User } from '@/types';
+import { Priority } from '@/types/priority';
+import { Project } from '@/types/project';
+import { State } from '@/types/state';
+import { Type } from '@/types/type';
+import { useForm } from '@inertiajs/react';
+import { ja } from 'date-fns/locale';
+import { useState } from 'react';
+import DatePicker from 'react-datepicker';
 
 export default function CreateTaskFrom({
     project,
@@ -16,7 +16,7 @@ export default function CreateTaskFrom({
     states,
     types,
     priorities,
-}:{
+}: {
     project: Project;
     users: User[];
     states: State[];
@@ -101,9 +101,7 @@ export default function CreateTaskFrom({
     };
     return (
         <form onSubmit={handleSubmit}>
-            {errors.type_id && (
-                <p className='text-red-500'>{errors.type_id}</p>
-            )}
+            {errors.type_id && <p className='text-red-500'>{errors.type_id}</p>}
             <div className='mb-3'>
                 <InputLabel htmlFor='type'>
                     <span className='text-red-500'>*(必須)</span>種別
@@ -165,9 +163,7 @@ export default function CreateTaskFrom({
                         name='state_id'
                         id='state'
                         className='rounded-md border-gray-300 shadow-sm min-w-48 max-w-60 text-sm'
-                        onChange={(e) =>
-                            handleSelectType(e, 'state_id')
-                        }
+                        onChange={(e) => handleSelectType(e, 'state_id')}
                         value={data.state_id ? data.state_id : ''}
                         required
                     >
@@ -193,9 +189,7 @@ export default function CreateTaskFrom({
                         name='manager'
                         id='manager'
                         className='rounded-md border-gray-300 shadow-sm min-w-48 max-w-60 text-sm'
-                        onChange={(e) =>
-                            setData('manager', e.target.value)
-                        }
+                        onChange={(e) => setData('manager', e.target.value)}
                         value={data.manager ? data.manager : ''}
                         required
                     >
@@ -226,19 +220,14 @@ export default function CreateTaskFrom({
                         name='priority_id'
                         id='priority'
                         className='rounded-md border-gray-300 shadow-sm min-w-48 max-w-60 text-sm'
-                        onChange={(e) =>
-                            handleSelectType(e, 'priority_id')
-                        }
+                        onChange={(e) => handleSelectType(e, 'priority_id')}
                         value={data.priority_id ? data.priority_id : ''}
                     >
                         <option value='' selected>
                             未設定
                         </option>
                         {priorities.map((priority) => (
-                            <option
-                                key={priority.id}
-                                value={priority.id}
-                            >
+                            <option key={priority.id} value={priority.id}>
                                 {priority.priority_name}
                             </option>
                         ))}
@@ -255,9 +244,7 @@ export default function CreateTaskFrom({
                         name='version_id'
                         id='version'
                         className='rounded-md border-gray-300 shadow-sm min-w-48 max-w-60 text-sm'
-                        onChange={(e) =>
-                            handleSelectType(e, 'version_id')
-                        }
+                        onChange={(e) => handleSelectType(e, 'version_id')}
                         value={data.version_id ? data.version_id : ''}
                     >
                         <option value='' selected>
@@ -282,9 +269,7 @@ export default function CreateTaskFrom({
                     <DatePicker
                         id='start_date'
                         selected={selectedStartDate}
-                        onChange={(date) =>
-                            handleDate('start_date', date)
-                        }
+                        onChange={(date) => handleDate('start_date', date)}
                         locale={ja}
                         placeholderText='日付を選択してください'
                         dateFormat='yyyy/MM/dd'
@@ -302,9 +287,7 @@ export default function CreateTaskFrom({
                     <DatePicker
                         id='end_date'
                         selected={selectedEndDate}
-                        onChange={(date) =>
-                            handleDate('end_date', date)
-                        }
+                        onChange={(date) => handleDate('end_date', date)}
                         locale={ja}
                         placeholderText='日付を選択してください'
                         dateFormat='yyyy/MM/dd'
@@ -326,6 +309,5 @@ export default function CreateTaskFrom({
                 </div>
             </div>
         </form>
-
-    )
+    );
 }
