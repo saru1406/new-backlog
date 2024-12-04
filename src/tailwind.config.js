@@ -19,7 +19,8 @@ export default {
                 '128': '32rem',
             },
             height: {
-                'lvh-73': '73lvh', // `h-lvh` を 100lvh に対応
+                'lvh-73': '73lvh',
+                'lvh-85': '85lvh',
             },
         },
     },

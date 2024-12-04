@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\ChildTask;
 
-use App\Repositories\Task\StoreTaskParams;
+use App\Repositories\ChildTask\StoreChildTaskParams;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTaskRequest extends FormRequest
+class StoreChildTaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -38,12 +38,13 @@ class StoreTaskRequest extends FormRequest
     /**
      * ParamsをStoreTaskParamsに格納
      *
-     * @return StoreTaskParams
+     * @return StoreChildTaskParams
      */
-    public function getParams(): StoreTaskParams
+    public function getParams(): StoreChildTaskParams
     {
-        return new StoreTaskParams(
+        return new StoreChildTaskParams(
             project_id: $this->route('projectId'),
+            task_id: $this->route('taskId'),
             type_id: $this->input('type_id'),
             state_id: $this->input('state_id'),
             manager_id: $this->input('manager'),

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories\Task;
 
 use App\Models\Company;
+use App\Models\Task;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
@@ -30,6 +31,18 @@ interface TaskRepositoryInterface
      * @return void
      */
     public function store(array $params): void;
+
+    /**
+     * タスクを取得
+     *
+     * @param int $taskId
+     * @param array $with
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     *
+     * @return Task
+     */
+    public function find(int $taskId, array $with = []): Task;
 
     /**
      * プロジェクトIDからタスクをページネーションで取得

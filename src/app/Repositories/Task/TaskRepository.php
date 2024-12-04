@@ -21,6 +21,14 @@ class TaskRepository implements TaskRepositoryInterface
     /**
      * {@inheritDoc}
      */
+    public function find(int $taskId, array $with = []): Task
+    {
+        return Task::with($with)->findOrFail($taskId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function fetchTaskByProjectIdWithPagination(string $projectId, array $with = [], array $columns = ['*'], ?int $page = null): LengthAwarePaginator
     {
         return Task::where('project_id', $projectId)

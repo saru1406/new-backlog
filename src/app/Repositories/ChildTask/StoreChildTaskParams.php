@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Task;
+namespace App\Repositories\ChildTask;
 
 use Carbon\Carbon;
 
-class StoreTaskParams
+class StoreChildTaskParams
 {
     /**
      * プロジェクトID
@@ -14,6 +14,13 @@ class StoreTaskParams
      * @var string
      */
     public readonly string $project_id;
+
+    /**
+     * タスクID
+     *
+     * @var int
+     */
+    public readonly int $task_id;
 
     /**
      * 種別ID
@@ -80,6 +87,7 @@ class StoreTaskParams
 
     public function __construct(
         string $project_id,
+        int $task_id,
         int $type_id,
         int $state_id,
         string $manager_id,
@@ -91,9 +99,10 @@ class StoreTaskParams
         ?string $end_date,
     ) {
         $this->project_id = $project_id;
+        $this->task_id = $task_id;
         $this->type_id = $type_id;
         $this->state_id = $state_id;
-        $this->manager = $manager_id;
+        $this->manager_id = $manager_id;
         $this->priority_id = $priority_id;
         $this->version_id = $version_id;
         $this->title = $title;
@@ -111,9 +120,10 @@ class StoreTaskParams
     {
         return [
             'project_id' => $this->project_id,
+            'task_id' => $this->task_id,
             'type_id' => $this->type_id,
             'state_id' => $this->state_id,
-            'manager' => $this->manager_id,
+            'manager_id' => $this->manager_id,
             'priority_id' => $this->priority_id,
             'version_id' => $this->version_id,
             'title' => $this->title,

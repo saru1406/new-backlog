@@ -13,12 +13,12 @@ export default function Sidebar({ project }: { project: Project }) {
                     >
                         プロジェクト一覧
                     </Link>
-                    <Link
+                    {/* <Link
                         href={route('projects.show', project.id)}
                         className='hover:text-gray-300 hover:bg-blue-900 block p-5'
                     >
                         ダッシュボード
-                    </Link>
+                    </Link> */}
                     <Link
                         href={route('tasks.create', project.id)}
                         className='hover:text-gray-300 hover:bg-blue-900 block p-5'

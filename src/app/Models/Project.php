@@ -29,6 +29,26 @@ class Project extends Model
     }
 
     /**
+     * タスクと紐づけ
+     *
+     * @return HasMany
+     */
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    /**
+     * 子タスクと紐づけ
+     *
+     * @return HasMany
+     */
+    public function childTasks(): HasMany
+    {
+        return $this->hasMany(ChildTask::class);
+    }
+
+    /**
      * 状態と紐づけ
      *
      * @return HasMany

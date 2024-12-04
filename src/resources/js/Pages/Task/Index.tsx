@@ -6,6 +6,7 @@ import { Pagination } from '@/types/pagination';
 import { State } from '@/types/state';
 import { Type } from '@/types/type';
 import { Priority } from '@/types/priority';
+import { format } from 'date-fns';
 
 export default function TaskIndex({
     project,
@@ -20,7 +21,6 @@ export default function TaskIndex({
     types: Type[];
     priorities: Priority[];
 }) {
-    console.log(states);
     return (
         <ProjectLayout
             project={project}
@@ -85,7 +85,7 @@ export default function TaskIndex({
                     <table className='border-collapse border border-gray-300 w-full mx-auto bg-white rounded-lg'>
                         <thead className='text-left shadow-sm text-teal-500'>
                             <tr>
-                                <th className='py-3 px-2'>番号</th>
+                                <th className='py-3 px-2'>キー</th>
                                 <th className='py-3 px-2'>件名</th>
                                 <th className='py-3 px-2'>種別</th>
                                 <th className='py-3 px-2'>状態</th>
@@ -104,7 +104,10 @@ export default function TaskIndex({
                                 <tr>
                                     <td className='py-3 px-2'>
                                         <Link
-                                            href='#'
+                                            href={route('tasks.show', [
+                                                project.id,
+                                                task.id,
+                                            ])}
                                             className='text-blue-600'
                                         >
                                             {task.id}
@@ -114,23 +117,49 @@ export default function TaskIndex({
                                     <td className='py-3 px-2'>
                                         {task.type?.type_name}
                                     </td>
-                                    <td className='py-3 px-2'>
-                                        {task.state?.state_name}
+                                    <td className='py-3 px-2 text-white text-nowrap'>
+                                        <span
+                                            className={`rounded-full py-1 px-2 ${
+                                                task.state?.state_name ===
+                                                '処理済み'
+                                                    ? 'bg-indigo-500'
+                                                    : task.state?.state_name ===
+                                                        '未対応'
+                                                      ? 'bg-orange-400'
+                                                      : task.state
+                                                              ?.state_name ===
+                                                          '処理中'
+                                                        ? 'bg-green-500'
+                                                        : task.state
+                                                                ?.state_name ===
+                                                            '完了'
+                                                          ? 'bg-slate-500'
+                                                          : ''
+                                            }`}
+                                        >
+                                            {task.state?.state_name}
+                                        </span>
                                     </td>
                                     <td className='py-3 px-2'>
                                         {task.priority?.priority_name}
                                     </td>
-                                    <td className='py-3 px-2'>
+                                    <td className='py-3 px-2 text-nowrap'>
                                         {task.manager?.name}
                                     </td>
                                     <td className='py-3 px-2'>
                                         {task.version_id}
                                     </td>
-                                    <td className='py-3 px-2'>
-                                        {task.start_date}
+                                    <td className='py-3 px-2 text-nowrap'>
+                                        {format(
+                                            new Date(task.start_date),
+                                            'yyyy/MM/dd'
+                                        )}
                                     </td>
-                                    <td className='py-3 px-2'>
-                                        {task.end_date}
+                                    <td className='py-3 px-2 text-nowrap'>
+                                        {format(
+                                            new Date(task.end_date),
+                                            'yyyy/MM/dd'
+                                        )}
                                     </td>
                                 </tr>
                             </tbody>
