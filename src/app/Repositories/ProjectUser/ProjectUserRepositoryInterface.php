@@ -16,7 +16,6 @@ interface ProjectUserRepositoryInterface
      */
     public function storeProjectUser(array $params): void;
 
-
     /**
      * プロジェクトのユーザを削除
      *

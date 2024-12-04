@@ -6,7 +6,6 @@ namespace App\Usecase\ProjectUser;
 
 use App\Repositories\ProjectUser\ProjectUserRepositoryInterface;
 use App\Repositories\ProjectUser\StoreProjectUserParams;
-use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 
 class StoreProjectUserUsecase implements StoreProjectUserUsecaseInterface

@@ -44,6 +44,8 @@ use App\Usecase\ProjectUser\StoreProjectUserUsecase;
 use App\Usecase\ProjectUser\StoreProjectUserUsecaseInterface;
 use App\Usecase\Task\BoardTaskUsecase;
 use App\Usecase\Task\BoardTaskUsecaseInterface;
+use App\Usecase\Task\CreateTaskUsecase;
+use App\Usecase\Task\CreateTaskUsecaseInterface;
 use App\Usecase\Task\FetchTaskBoardUsecase;
 use App\Usecase\Task\FetchTaskBoardUsecaseInterface;
 use App\Usecase\Task\GanttTaskUsecase;
@@ -92,6 +94,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TaskServiceInterface::class, TaskService::class);
         $this->app->bind(BoardTaskUsecaseInterface::class, BoardTaskUsecase::class);
         $this->app->bind(IndexTaskUsecaseInterface::class, IndexTaskUsecase::class);
+        $this->app->bind(CreateTaskUsecaseInterface::class, CreateTaskUsecase::class);
 
         // Board
         $this->app->bind(FetchTaskBoardUsecaseInterface::class, FetchTaskBoardUsecase::class);

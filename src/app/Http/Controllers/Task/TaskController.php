@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use App\Usecase\Project\ShowProjectUsecaseInterface;
 use App\Usecase\Task\BoardTaskUsecaseInterface;
+use App\Usecase\Task\CreateTaskUsecaseInterface;
 use App\Usecase\Task\GanttTaskUsecaseInterface;
 use App\Usecase\Task\IndexTaskUsecaseInterface;
 use App\Usecase\Task\StoreTaskUsecaseInterface;
@@ -23,6 +24,7 @@ class TaskController extends Controller
         private readonly BoardTaskUsecaseInterface $boardTaskUsecase,
         private readonly IndexTaskUsecaseInterface $indexTaskUsecase,
         private readonly GanttTaskUsecaseInterface $ganttTaskUsecase,
+        private readonly CreateTaskUsecaseInterface $createTaskUsecase,
     ) {
     }
 
@@ -59,9 +61,15 @@ class TaskController extends Controller
      */
     public function create(string $projectId)
     {
-        $project = $this->showProjectUsecase->execute($projectId);
+        $data = $this->createTaskUsecase->execute($projectId);
 
-        return Inertia::render('Task/Create', ['project' => $project, 'error_message' => session('error_message')]);
+        return Inertia::render('Task/Create', [
+            'project' => $data['project'],
+            'users' => $data['project']->users,
+            'states' => $data['states'],
+            'types' => $data['types'],
+            'priorities' => $data['priorities'],
+        ]);
     }
 
     /**

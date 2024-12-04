@@ -7,7 +7,6 @@ use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\ProjectUser\ProjectUserController;
 use App\Http\Controllers\Task\TaskController;
 use App\Http\Controllers\Type\TypeController;
-use App\Http\Controllers\User\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;

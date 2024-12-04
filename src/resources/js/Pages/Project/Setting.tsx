@@ -30,7 +30,7 @@ export default function ProjectSetting({
     message?: string;
     error_message?: string;
 }) {
-    console.log(users)
+    console.log(users);
     const [isModalOpen, setIsModalOpen] = useState({
         type: false,
         priority: false,
@@ -83,14 +83,21 @@ export default function ProjectSetting({
         });
     };
 
-    const handleSubmitUser = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>, userEmail: string) => {
+    const handleSubmitUser = (
+        e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+        userEmail: string
+    ) => {
         e.preventDefault();
-        router.post(route('project_users.store', project.id), {
-            'user_email': userEmail
-        }, {
-            preserveScroll: true,
-        });
-        closeModal('user')
+        router.post(
+            route('project_users.store', project.id),
+            {
+                user_email: userEmail,
+            },
+            {
+                preserveScroll: true,
+            }
+        );
+        closeModal('user');
     };
 
     const handleDeleteType = (
@@ -370,8 +377,13 @@ export default function ProjectSetting({
                                                                 </td>
                                                                 <td className='py-3 px-5 text-center'>
                                                                     <button
-                                                                        onClick={(e) =>
-                                                                            handleSubmitUser(e, company_user.email)
+                                                                        onClick={(
+                                                                            e
+                                                                        ) =>
+                                                                            handleSubmitUser(
+                                                                                e,
+                                                                                company_user.email
+                                                                            )
                                                                         }
                                                                         className='bg-green-500 rounded-lg px-4 py-2 border border-gray-300 text-white text-xs font-semibold shadow-md hover:bg-green-600 hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105'
                                                                     >
@@ -414,13 +426,12 @@ export default function ProjectSetting({
                                         {user.email}
                                     </td>
                                     <td className='py-3 px-5 text-center text-red-500'>
-                                        <span className='cursor-pointer'
+                                        <span
+                                            className='cursor-pointer'
                                             onClick={(e) =>
-                                                handleDeleteUser(
-                                                    e,
-                                                    user
-                                                )
-                                            }>
+                                                handleDeleteUser(e, user)
+                                            }
+                                        >
                                             ✕
                                         </span>
                                     </td>

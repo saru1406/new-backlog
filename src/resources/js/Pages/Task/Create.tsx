@@ -1,7 +1,7 @@
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import ProjectLayout from '@/Layouts/ProjectLayout';
-import { PageProps } from '@/types';
+import { PageProps, User } from '@/types';
 import { Project } from '@/types/project';
 import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
@@ -9,13 +9,24 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ja } from 'date-fns/locale';
 import { useForm } from '@inertiajs/react';
 import Message from '@/Components/Message';
+import { State } from '@/types/state';
+import { Type } from '@/types/type';
+import { Priority } from '@/types/priority';
 
 export default function TaskCreate({
     project,
+    users,
+    states,
+    types,
+    priorities,
     message,
     error_message,
 }: PageProps & {
     project: Project;
+    users: User[];
+    states: State[];
+    types: Type[];
+    priorities: Priority[];
     message?: string;
     error_message?: string;
 }) {
@@ -48,26 +59,27 @@ export default function TaskCreate({
     };
 
     const { data, setData, post, processing, errors, reset } = useForm<{
-        type_id: number;
+        type_id: number | null;
         title: string;
         body: string;
-        state_id: number;
-        manager: string;
-        priority_id: number;
+        state_id: number | null;
+        manager: string | null;
+        priority_id: number | null;
         version_id: number | null;
         start_date: string | null;
         end_date: string | null;
     }>({
-        type_id: 1,
+        type_id: null,
         title: '',
         body: '',
-        state_id: 1,
-        manager: '1',
-        priority_id: 1,
+        state_id: null,
+        manager: null,
+        priority_id: null,
         version_id: null,
         start_date: '',
         end_date: '',
     });
+    console.log(data)
 
     const handleSelectType = (
         e: React.ChangeEvent<HTMLSelectElement>,
@@ -103,6 +115,11 @@ export default function TaskCreate({
             <Message message={message} error_message={error_message} />
             <div className='mx-40 my-8'>
                 <form onSubmit={handleSubmit}>
+                    {errors.type_id && (
+                        <p className='text-red-500'>
+                            {errors.type_id}
+                        </p>
+                    )}
                     <div className='mb-3'>
                         <InputLabel value='種別' htmlFor='type'></InputLabel>
                         <select
@@ -111,9 +128,14 @@ export default function TaskCreate({
                             name='type_id'
                             onChange={(e) => handleSelectType(e, 'type_id')}
                         >
-                            <option value='1'>タスク</option>
-                            <option value='2'>課題</option>
-                            <option value='3'>TODO</option>
+                            <option value='' selected>
+                                ----選択してください----
+                            </option>
+                            {types.map((type) => (
+                                <option key={type.id} value={type.id}>
+                                    {type.type_name}
+                                </option>
+                            ))}
                         </select>
                     </div>
                     <div className='mb-10'>
@@ -153,10 +175,14 @@ export default function TaskCreate({
                                     handleSelectType(e, 'state_id')
                                 }
                             >
-                                <option value='1'>未対応</option>
-                                <option value='2'>対応中</option>
-                                <option value='3'>対応済み</option>
-                                <option value='4'>完了</option>
+                                <option value='' selected>
+                                    ----選択してください----
+                                </option>
+                                {states.map((state) => (
+                                    <option key={state.id} value={state.id}>
+                                        {state.state_name}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                         <div className='w-full flex'>
@@ -174,11 +200,20 @@ export default function TaskCreate({
                                     setData('manager', e.target.value)
                                 }
                             >
-                                <option value='1'>未対応</option>
-                                <option value='2'>対応中</option>
-                                <option value='3'>対応済み</option>
-                                <option value='4'>完了</option>
+                                <option value='' selected>
+                                    ----選択してください----
+                                </option>
+                                {users.map((user) => (
+                                    <option key={user.id} value={user.id}>
+                                        {user.name}
+                                    </option>
+                                ))}
                             </select>
+                            {errors.manager && (
+                                <p className='text-red-500'>
+                                    {errors.manager}
+                                </p>
+                            )}
                         </div>
                     </div>
                     <hr />
@@ -198,9 +233,14 @@ export default function TaskCreate({
                                     handleSelectType(e, 'priority_id')
                                 }
                             >
-                                <option value='1'>低</option>
-                                <option value='2'>中</option>
-                                <option value='3'>高</option>
+                                <option value='' selected>
+                                    未設定
+                                </option>
+                                {priorities.map((priority) => (
+                                    <option key={priority.id} value={priority.id}>
+                                        {priority.priority_name}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                         <div className='w-full flex'>

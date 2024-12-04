@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Usecase\ProjectUser;
 
 use App\Repositories\ProjectUser\StoreProjectUserParams;
-use App\Repositories\user\StoreUserParams;
 
 interface StoreProjectUserUsecaseInterface
 {
